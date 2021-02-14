@@ -21,21 +21,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="Azure CognitiveServices 文字朗讀功能 且有部份與 Task 相關">
+  <meta name="description" content="使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號                          hexo 部署至 github                          hexo 隱藏文章">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用自行包裝的 AzureCognitiveServicesTTS 以及 Task 初探">
-<meta property="og:url" content="http://yoursite.com/2020/12/16/202012/20201216-AzureCognitiveServicesTTSAndTask/index.html">
+<meta property="og:title" content="hexo 部署到 github 的備忘錄">
+<meta property="og:url" content="http://yoursite.com/2021/02/15/202102/20210215-hexo_deploy/index.html">
 <meta property="og:site_name" content="Hank&#39;s Memo">
-<meta property="og:description" content="Azure CognitiveServices 文字朗讀功能 且有部份與 Task 相關">
+<meta property="og:description" content="使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號                          hexo 部署至 github                          hexo 隱藏文章">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-12-16T05:42:00.000Z">
-<meta property="article:modified_time" content="2021-02-14T16:52:14.740Z">
+<meta property="og:image" content="http://yoursite.com/2021/02/15/202102/20210215-hexo_deploy/ssh.png">
+<meta property="article:published_time" content="2021-02-14T17:01:00.000Z">
+<meta property="article:modified_time" content="2021-02-14T17:19:43.819Z">
 <meta property="article:author" content="Hank Chang">
-<meta property="article:tag" content="api">
-<meta property="article:tag" content="azure">
+<meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/02/15/202102/20210215-hexo_deploy/ssh.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/12/16/202012/20201216-AzureCognitiveServicesTTSAndTask/">
+<link rel="canonical" href="http://yoursite.com/2021/02/15/202102/20210215-hexo_deploy/">
 
 
 <script id="page-configurations">
@@ -48,7 +49,7 @@
   };
 </script>
 
-  <title>使用自行包裝的 AzureCognitiveServicesTTS 以及 Task 初探 | Hank's Memo</title><meta name="robots" content="noindex">
+  <title>hexo 部署到 github 的備忘錄 | Hank's Memo</title>
   
 
 
@@ -198,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/16/202012/20201216-AzureCognitiveServicesTTSAndTask/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/15/202102/20210215-hexo_deploy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.png">
@@ -211,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用自行包裝的 AzureCognitiveServicesTTS 以及 Task 初探
+          hexo 部署到 github 的備忘錄
         </h1>
 
         <div class="post-meta">
@@ -220,16 +221,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-12-16 13:42:00" itemprop="dateCreated datePublished" datetime="2020-12-16T13:42:00+08:00">2020-12-16</time>
+              <time title="Created: 2021-02-15 01:01:00 / Modified: 01:19:43" itemprop="dateCreated datePublished" datetime="2021-02-15T01:01:00+08:00">2021-02-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-15 00:52:14" itemprop="dateModified" datetime="2021-02-15T00:52:14+08:00">2021-02-15</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -240,7 +235,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E8%A1%93/azure/" itemprop="url" rel="index"><span itemprop="name">azure</span></a>
+                  <a href="/categories/%E6%8A%80%E8%A1%93/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
                 </span>
             </span>
 
@@ -256,22 +251,53 @@
 
       
         <div class="note default">
-            <p>Azure CognitiveServices 文字朗讀功能 且有部份與 Task 相關</p>
+            <p>使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號</p>
+          </div>
+
+<div class="note default">
+            <p>hexo 部署至 github</p>
+          </div>
+
+<div class="note default">
+            <p>hexo 隱藏文章</p>
           </div>
 
 <a id="more"></a>
 
-<h2 id="SynthesisToSpeakerAsyncWrap-程式"><a href="#SynthesisToSpeakerAsyncWrap-程式" class="headerlink" title="SynthesisToSpeakerAsyncWrap 程式"></a>SynthesisToSpeakerAsyncWrap 程式</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">SynthesisToSpeakerAsyncWrap</span>(<span class="params"><span class="keyword">string</span> text, <span class="keyword">string</span> tts_path</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">string</span> apiKey = <span class="string">&quot;7340d2aa57254ee994003fb7ad262557&quot;</span>;</span><br><span class="line">            <span class="keyword">string</span> apiRegion = <span class="string">&quot;southeastasia&quot;</span>;</span><br><span class="line">            <span class="keyword">string</span> voiceName = <span class="string">&quot;zh-TW-HsiaoChenNeural&quot;</span>;</span><br><span class="line">            <span class="keyword">await</span> HankTool2020.Azure.CognitiveServicesTTS.SynthesisToSpeakerAsync(apiKey, apiRegion, voiceName, text, tts_path);</span><br><span class="line">            Console.WriteLine(text);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是主程式</span></span><br><span class="line">            sArr = <span class="string">@&quot;C:\TestArea\G0380001_TestLoop\&quot;</span>;</span><br><span class="line">            <span class="keyword">string</span> saveWavPath = <span class="string">@&quot;C:\TestArea\G0380001_wav\&quot;</span>;</span><br><span class="line">            <span class="keyword">string</span>[] textLawArray = Directory.GetFiles(sArr);</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="keyword">string</span> s <span class="keyword">in</span> textLawArray)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">string</span> path = <span class="keyword">new</span> FileInfo(s).Name;</span><br><span class="line">                path = saveWavPath + path + <span class="string">&quot;.wav&quot;</span>;</span><br><span class="line">                path = path.Replace(<span class="string">&quot;.txt&quot;</span>, <span class="keyword">string</span>.Empty);</span><br><span class="line">                <span class="keyword">string</span> text = File.ReadAllText(s, Encoding.UTF8);</span><br><span class="line"></span><br><span class="line">                SynthesisToSpeakerAsyncWrap(text, path).Wait();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="問題說明"><a href="#問題說明" class="headerlink" title="問題說明"></a>問題說明</h2><ul>
-<li>原本沒找到 .Wait(); 之前，程式執行時是非同步的，可能是一次執行多個，在使用 api 時會出現錯誤，也無法正常轉檔/儲存檔案</li>
-<li>後來找到以下參考文章，就可以讓每次迴圈中的 Task 跑完再到下個迴圈<br><a target="_blank" rel="noopener" href="https://csharpkh.blogspot.com/2019/09/CSharp-Task-Run-StartNew-Thread-Wait-Cancellation-CancellationToken-Exception.html">當使用工作執行個體，如何等待該執行完成</a></li>
-<li>自製的元件<br><a target="_blank" rel="noopener" href="https://bitbucket.org/hccga7/hccga7/src/master/HankTool2020/Azure/">HankTool2020.Azure.CognitiveServicesTTS</a></li>
+<h2 id="使用-TortoiseGit-透過-SSH-操作多個-GitHub-帳號"><a href="#使用-TortoiseGit-透過-SSH-操作多個-GitHub-帳號" class="headerlink" title="使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號"></a>使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號</h2><ul>
+<li><p>參考文章<br><a target="_blank" rel="noopener" href="https://dotblogs.com.tw/supershowwei/2017/09/14/142407">使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號</a></p>
+</li>
+<li><p>實作<br>TortoiseGit clone時的修改 (使用session)<br>(預設) <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:HankChangGSS/HankChangGSS.github.io.git<br>(修改) git@HankChangGSS_github:HankChangGSS/HankChangGSS.github.io.git<br><img src="/2021/02/15/202102/20210215-hexo_deploy/ssh.png" alt="ssh"></p>
+</li>
 </ul>
-<h2 id="官方網頁語音清單"><a href="#官方網頁語音清單" class="headerlink" title="官方網頁語音清單"></a>官方網頁語音清單</h2><p><a target="_blank" rel="noopener" href="https://azure.microsoft.com/zh-tw/services/cognitive-services/text-to-speech/#features">文字轉換語音</a></p>
-<h3 id="建議採用之語音"><a href="#建議採用之語音" class="headerlink" title="建議採用之語音"></a>建議採用之語音</h3><p>繁中: zh-TW-HsiaoChenNeural<br>英文: en-US-JennyNeural</p>
-<h2 id="延伸學習-欲購清單"><a href="#延伸學習-欲購清單" class="headerlink" title="延伸學習 (欲購清單)"></a>延伸學習 (欲購清單)</h2><p><a target="_blank" rel="noopener" href="https://www.udemy.com/course/introduction-to-concurrency-in-c-async-and-paralellism/">Introduction to Concurrency in C# - Async and Paralellism</a></p>
-<!-- flag of hidden posts -->
+<h2 id="hexo-部署至-github"><a href="#hexo-部署至-github" class="headerlink" title="hexo 部署至 github"></a>hexo 部署至 github</h2><ul>
+<li><p>參考文章<br><a target="_blank" rel="noopener" href="https://blackmaple.me/hexo-tutorial/">Hexo+GitHub，新手也可以快速建立部落格</a></p>
+</li>
+<li><p>需先安裝 hexo-deployer-git</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">Blog</span>\<span class="title">HankMemoCopy</span>&gt;<span class="title">npm</span> <span class="title">install</span> <span class="title">hexo</span>-<span class="title">deployer</span>-<span class="title">git</span> --<span class="title">save</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>_config.yml 修改前</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>_config.yml 修改後</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/HankChangGSS/HankChangGSS.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署指令</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>待處理 (部署時，每次仍需輸入帳密，需再查看是否有解決方式)<br>帳號: <a href="mailto:&#x68;&#97;&#x6e;&#x6b;&#99;&#104;&#97;&#110;&#x67;&#x67;&#115;&#x73;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x68;&#97;&#x6e;&#x6b;&#99;&#104;&#97;&#110;&#x67;&#x67;&#115;&#x73;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br><a target="_blank" rel="noopener" href="https://hankchanggss.github.io/">部署位置</a></p>
+</li>
+</ul>
+<h2 id="hexo-隱藏文章"><a href="#hexo-隱藏文章" class="headerlink" title="hexo 隱藏文章"></a>hexo 隱藏文章</h2><ul>
+<li><p>參考文章<br><a target="_blank" rel="noopener" href="https://www.jensenhong.com/2020/10/02/hexo-next-hidden-post/">hexo+next下隐藏文章与其导航|hexo+next-hidden-post</a></p>
+</li>
+<li><p>安裝 hexo-hide-posts</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-hide-posts --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文章 title</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Lorem Ipsum&#x27;</span><br><span class="line">date: &#x27;2019/8/10 11:45:14&#x27;</span><br><span class="line">hidden: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ul>
+
     </div>
 
     
@@ -280,8 +306,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/api/" rel="tag"># api</a>
-              <a href="/tags/azure/" rel="tag"># azure</a>
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
           </div>
 
         
@@ -345,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SynthesisToSpeakerAsyncWrap-%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">SynthesisToSpeakerAsyncWrap 程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C%E8%AA%AA%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">問題說明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E7%B6%B2%E9%A0%81%E8%AA%9E%E9%9F%B3%E6%B8%85%E5%96%AE"><span class="nav-number">3.</span> <span class="nav-text">官方網頁語音清單</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E8%AD%B0%E6%8E%A1%E7%94%A8%E4%B9%8B%E8%AA%9E%E9%9F%B3"><span class="nav-number">3.1.</span> <span class="nav-text">建議採用之語音</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E5%AD%B8%E7%BF%92-%E6%AC%B2%E8%B3%BC%E6%B8%85%E5%96%AE"><span class="nav-number">4.</span> <span class="nav-text">延伸學習 (欲購清單)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TortoiseGit-%E9%80%8F%E9%81%8E-SSH-%E6%93%8D%E4%BD%9C%E5%A4%9A%E5%80%8B-GitHub-%E5%B8%B3%E8%99%9F"><span class="nav-number">1.</span> <span class="nav-text">使用 TortoiseGit 透過 SSH 操作多個 GitHub 帳號</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-%E9%83%A8%E7%BD%B2%E8%87%B3-github"><span class="nav-number">2.</span> <span class="nav-text">hexo 部署至 github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-%E9%9A%B1%E8%97%8F%E6%96%87%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">hexo 隱藏文章</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
