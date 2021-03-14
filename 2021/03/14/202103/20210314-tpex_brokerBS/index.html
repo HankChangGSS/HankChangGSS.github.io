@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/03/14/202103/20210314-tpex_brokerBS/12.png">
 <meta property="og:image" content="http://yoursite.com/2021/03/14/202103/20210314-tpex_brokerBS/13.png">
 <meta property="article:published_time" content="2021-03-14T05:11:00.000Z">
-<meta property="article:modified_time" content="2021-03-14T06:20:30.050Z">
+<meta property="article:modified_time" content="2021-03-14T06:23:23.757Z">
 <meta property="article:author" content="Hank Chang">
 <meta property="article:tag" content="html">
 <meta property="article:tag" content="web scraper">
@@ -236,7 +236,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-03-14 13:11:00 / Modified: 14:20:30" itemprop="dateCreated datePublished" datetime="2021-03-14T13:11:00+08:00">2021-03-14</time>
+              <time title="Created: 2021-03-14 13:11:00 / Modified: 14:23:23" itemprop="dateCreated datePublished" datetime="2021-03-14T13:11:00+08:00">2021-03-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,10 +278,10 @@
 <ol>
 <li>註冊帳號，使用 google 登入即可。<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/3.png" alt="desc"></li>
 <li>Accept User Agreement<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/4.png" alt="accept"></li>
-<li>註冊完成後，可以看到帳戶餘額以及金鑰，這個金鑰是在使用 api 時需用到的。同時也可以看到，每使用 1000 次「我不是機器人」的破解服務，費用是 2 美金。<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/5.png" alt="accept"></li>
-<li>在 Finance 選單中，可以使用 Demo Credit 功能，輸入自己的手機後，可以獲得 $0.01 至 $0.1 美金的試用額度。<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/6.png" alt="accept"><br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/7.png" alt="accept"></li>
-<li>接下來可以看網站中的 api 教學文件<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/8.png" alt="accept"></li>
-<li>其中也有提供 <a target="_blank" rel="noopener" href="https://github.com/AdminAnticaptcha/anticaptcha-csharp">C# 範例程式 (github)</a><br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/9.png" alt="accept"></li>
+<li>註冊完成後，可以看到帳戶餘額以及金鑰，這個金鑰是在使用 api 時需用到的。同時也可以看到，每使用 1000 次「我不是機器人」的破解服務，費用是 2 美金。<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/5.png" alt="registered"></li>
+<li>在 Finance 選單中，可以使用 Demo Credit 功能，輸入自己的手機後，可以獲得 $0.01 至 $0.1 美金的試用額度。<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/6.png" alt="demo1"><br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/7.png" alt="demo2"></li>
+<li>接下來可以看網站中的 api 教學文件<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/8.png" alt="decuments"></li>
+<li>其中也有提供 <a target="_blank" rel="noopener" href="https://github.com/AdminAnticaptcha/anticaptcha-csharp">C# 範例程式 (github)</a><br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/9.png" alt="c#"></li>
 <li>將取得的範例程式，改寫如下<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ExampleRecaptcha2Proxyless</span>(<span class="params"><span class="keyword">string</span> url</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">string</span> result = <span class="keyword">string</span>.Empty;</span><br><span class="line"></span><br><span class="line">    DebugHelper.VerboseMode = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> api = <span class="keyword">new</span> RecaptchaV2Proxyless</span><br><span class="line">    &#123;</span><br><span class="line">        ClientKey = ClientKey,</span><br><span class="line">        WebsiteUrl = <span class="keyword">new</span> Uri(url),</span><br><span class="line">        <span class="comment">//WebsiteUrl = new Uri(&quot;https://www.tpex.org.tw/web/stock/aftertrading/broker_trading/brokerBS.php?l=zh-tw&quot;),</span></span><br><span class="line">        WebsiteKey = <span class="string">&quot;6LcCoP8SAAAAAKzsvbTXymxqNWcC-dAhDYik0V3C&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!api.CreateTask())</span><br><span class="line">        DebugHelper.Out(<span class="string">&quot;API v2 send failed. &quot;</span> + api.ErrorMessage, DebugHelper.Type.Error);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!api.WaitForResult())</span><br><span class="line">        DebugHelper.Out(<span class="string">&quot;Could not solve the captcha.&quot;</span>, DebugHelper.Type.Error);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        DebugHelper.Out(<span class="string">&quot;Result: &quot;</span> + api.GetTaskSolution().GRecaptchaResponse, DebugHelper.Type.Success);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 這裡有兩個變數值需注意。<br>首先是 WebsiteUrl 。這邊輸入「券商買賣證券日報表查詢系統（一般交易）」的網址，也就是 <a target="_blank" rel="noopener" href="https://www.tpex.org.tw/web/stock/aftertrading/broker_trading/brokerBS.php?l=zh-tw">https://www.tpex.org.tw/web/stock/aftertrading/broker_trading/brokerBS.php?l=zh-tw</a><br>然後是 WebsiteKey 。需要輸入的值是 6LcCoP8SAAAAAKzsvbTXymxqNWcC-dAhDYik0V3C 。可由 chrome F12 得到。<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/10.png" alt="data-sitekey"></li>
 <li>實際執行程式，可以看到 api 有確實取得驗證<br><img src="/2021/03/14/202103/20210314-tpex_brokerBS/11.png" alt="perfome_api"></li>
