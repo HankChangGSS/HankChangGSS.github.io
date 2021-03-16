@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載">
+<meta property="og:type" content="article">
+<meta property="og:title" content="證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載">
+<meta property="og:url" content="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/index.html">
+<meta property="og:site_name" content="Hank&#39;s Memo">
+<meta property="og:description" content="證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/cnn01.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/cnn02.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/cnn03.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/cnn04.png">
+<meta property="article:published_time" content="2021-03-16T11:27:00.000Z">
+<meta property="article:modified_time" content="2021-03-16T12:19:43.346Z">
+<meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="web scraper">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="tensorflow">
+<meta property="article:tag" content="keras">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/cnn01.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載 | Hank's Memo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hank's Memo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-文章列表">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-標籤">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-關於我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於我</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/16/202103/20210316-twse-bshtm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="Hank Chang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hank's Memo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-16 19:27:00 / Modified: 20:19:43" itemprop="dateCreated datePublished" datetime="2021-03-16T19:27:00+08:00">2021-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/" itemprop="url" rel="index"><span itemprop="name">技術</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="note default">
+            <p>證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載</p>
+          </div>
+
+<a id="more"></a>
+
+<h2 id="證交所買賣交易日報驗證碼-開源專案研究與後續處理自動下載"><a href="#證交所買賣交易日報驗證碼-開源專案研究與後續處理自動下載" class="headerlink" title="證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載"></a>證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載</h2><h3 id="開源專案"><a href="#開源專案" class="headerlink" title="開源專案"></a>開源專案</h3><ul>
+<li>證交所的<a target="_blank" rel="noopener" href="https://bsr.twse.com.tw/bshtm/">買賣日報表查詢系統</a>提供最近一日的上市買賣日報，下載時需要先輸入驗證碼。這種驗證碼有很多種破解方式，今天介紹的是 github 上的一個開源專案 <a target="_blank" rel="noopener" href="https://github.com/maxmilian/twse_bshtm_captcha">證交所買賣交易日報驗證碼</a>，很容易上手，效果也不錯。</li>
+</ul>
+<h3 id="開源專案的後續加工"><a href="#開源專案的後續加工" class="headerlink" title="開源專案的後續加工"></a>開源專案的後續加工</h3><ol>
+<li>由於專案內的說明已經很詳盡了，有興趣使用者，可自行下載專案研讀文件及程式。這裡再補充一下自己後續的處理，以及串接自動化下載的步驟。</li>
+<li>首先，針對所有已標記過的檔案，做一次圖片的預處理。由於總共標記了15,000個圖片檔，所以程式的迴圈數可以修改一下。<br><img src="/2021/03/16/202103/20210316-twse-bshtm/cnn01.png" alt="preprocess"> </li>
+<li>再來實際跑模型，並附上一些實際執行期間的訊息。這邊的程式，每跑一個 epoch 會存一個模型檔。需要花費的時間應該跟硬體規格有關。我自己的環境跑一個 epoch 需要三分鐘左右。<br><img src="/2021/03/16/202103/20210316-twse-bshtm/cnn02.png" alt="model1"><br><img src="/2021/03/16/202103/20210316-twse-bshtm/cnn03.png" alt="model2"><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">2021-03-16 19:46:04.754543: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: logs/train/plugins/profile/2021_03_16_19_46_04</span><br><span class="line">2021-03-16 19:46:04.758101: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for trace.json.gz to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.trace.json.gz</span><br><span class="line">2021-03-16 19:46:04.761178: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: logs/train/plugins/profile/2021_03_16_19_46_04</span><br><span class="line">2021-03-16 19:46:04.761298: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for memory_profile.json.gz to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.memory_profile.json.gz</span><br><span class="line">2021-03-16 19:46:04.761559: I tensorflow/python/profiler/internal/profiler_wrapper.cc:111] Creating directory: logs/train/plugins/profile/2021_03_16_19_46_04Dumped tool data for xplane.pb to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.xplane.pb</span><br><span class="line">Dumped tool data for overview_page.pb to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.overview_page.pb</span><br><span class="line">Dumped tool data for input_pipeline.pb to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.input_pipeline.pb</span><br><span class="line">Dumped tool data for tensorflow_stats.pb to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.tensorflow_stats.pb</span><br><span class="line">Dumped tool data for kernel_stats.pb to logs/train/plugins/profile/2021_03_16_19_46_04/localhost.localdomain.kernel_stats.pb</span><br><span class="line"></span><br><span class="line">160/160 [==============================] - ETA: 0s - loss: 0.0747 - digit1_loss: 0.0163 - digit2_loss: 0.0129 - digit3_loss: 0.0158 - digit4_loss: 0.0131 - digit5_loss: 0.0166 - digit1_accuracy: 0.9944 - digit2_accuracy: 0.9954 - digit3_accuracy: 0.9950 - digit4_accuracy: 0.9954 - digit5_accuracy: 0.9944</span><br><span class="line">Epoch 00001: saving model to model/01-0.07-0.28.hdf5</span><br><span class="line">160/160 [==============================] - 159s 995ms/step - loss: 0.0747 - digit1_loss: 0.0163 - digit2_loss: 0.0129 - digit3_loss: 0.0158 - digit4_loss: 0.0131 - digit5_loss: 0.0166 - digit1_accuracy: 0.9944 - digit2_accuracy: 0.9954 - digit3_accuracy: 0.9950 - digit4_accuracy: 0.9954 - digit5_accuracy: 0.9944 - val_loss: 0.2760 - val_digit1_loss: 0.0445 - val_digit2_loss: 0.0558 - val_digit3_loss: 0.0707 - val_digit4_loss: 0.0520 - val_digit5_loss: 0.0530 - val_digit1_accuracy: 0.9985 - val_digit2_accuracy: 0.9975 - val_digit3_accuracy: 0.9965 - val_digit4_accuracy: 0.9985 - val_digit5_accuracy: 0.9985</span><br><span class="line">Epoch 2/30</span><br><span class="line"> 52/160 [========&gt;.....................] - ETA: 1:44 - loss: 0.0788 - digit1_loss: 0.0095 - digit2_loss: 0.0142 - digit3_loss: 0.0153 - digit4_loss: 0.0164 - digit5_loss: 0.0235 - digit1_accuracy: 0.9954 - digit2_accuracy: 0.9958 - digit3_accuracy: 0.9965 - digit4_accuracy: 0.9962 - digit5_accuracy: 0.9927</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>使用模型預測，這邊由於專案中沒有說明，加上自己還是初學 DL ，摸索了很久，這邊將心得註記下來，如註解的部份。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TakeGuess</span>(<span class="params">filename</span>):</span></span><br><span class="line">   print(<span class="string">&#x27;model loading...&#x27;</span>)</span><br><span class="line">   model = load_model(<span class="string">&quot;model/01-0.07-0.28.hdf5&quot;</span>) <span class="comment">#載入模型</span></span><br><span class="line">   print(<span class="string">&#x27;loading completed&#x27;</span>)</span><br><span class="line">   </span><br><span class="line">   from_filename = CAPTCHA_FOLDER + filename</span><br><span class="line">   to_filename = PROCESSED_FOLDER + filename</span><br><span class="line">   </span><br><span class="line">   preprocessing(from_filename, to_filename) <span class="comment">#將要辨識的圖片做一次預處理</span></span><br><span class="line"></span><br><span class="line">   img = cv2.imread(to_filename)</span><br><span class="line">   npary = np.array(img)/<span class="number">255.0</span></span><br><span class="line">   npary = npary.reshape(<span class="number">-1</span>, <span class="number">40</span>, <span class="number">190</span>, <span class="number">3</span>) <span class="comment">#將預處理過的圖片轉成模型可接受的形式</span></span><br><span class="line">   x = model.predict(npary) <span class="comment">#預測結果</span></span><br><span class="line">   result = one_hot_decoding(x, allowedChars) <span class="comment">#使用 one_hot_decoding 將預測結果轉成字串</span></span><br><span class="line">   <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="下載證交所買賣交易日報的程式"><a href="#下載證交所買賣交易日報的程式" class="headerlink" title="下載證交所買賣交易日報的程式"></a>下載證交所買賣交易日報的程式</h3><ul>
+<li><p>下載資料的部份，網路上也有分享品質很好的程式: <a target="_blank" rel="noopener" href="https://gist.github.com/CMingTseng/79447ccb2bb41e4bd8ec36d020fccab9">分點進出取資料研究</a>。程式下載回來後，將手動輸入驗證碼的部份改成呼叫上述辨識的程式即可完成自動化的版本。</p>
+</li>
+<li><p>原始版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;輸入圖型驗證碼: &#x27;</span>, end=<span class="string">&#x27;&#x27;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">vcode = sys.stdin.readline().strip()</span><br><span class="line">params[<span class="string">&#x27;CaptchaControl1&#x27;</span>] = vcode</span><br><span class="line">params[<span class="string">&#x27;TextBox_Stkno&#x27;</span>] = <span class="string">&#x27;2330&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>自動辨識版</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># print(&#x27;輸入圖型驗證碼: &#x27;, end=&#x27;&#x27;, flush=True)</span></span><br><span class="line"><span class="comment"># vcode = sys.stdin.readline().strip()</span></span><br><span class="line">vcode = TakeGuess(imgpath)</span><br><span class="line">params[<span class="string">&#x27;CaptchaControl1&#x27;</span>] = vcode</span><br><span class="line">params[<span class="string">&#x27;TextBox_Stkno&#x27;</span>] = <span class="string">&#x27;2330&#x27;</span> </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>實際下載測試成果，截圖如下。個人體感，辨識率大概在八成左右(每下載五次大概會失敗一次)，後續還有改良空間。<br><img src="/2021/03/16/202103/20210316-twse-bshtm/cnn04.png" alt="download"></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+              <a href="/tags/web-scraper/" rel="tag"># web scraper</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+              <a href="/tags/keras/" rel="tag"># keras</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/14/202103/20210314-tpex_brokerBS/" rel="prev" title="櫃買-券商買賣證券日報表研究">
+      <i class="fa fa-chevron-left"></i> 櫃買-券商買賣證券日報表研究
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AD%89%E4%BA%A4%E6%89%80%E8%B2%B7%E8%B3%A3%E4%BA%A4%E6%98%93%E6%97%A5%E5%A0%B1%E9%A9%97%E8%AD%89%E7%A2%BC-%E9%96%8B%E6%BA%90%E5%B0%88%E6%A1%88%E7%A0%94%E7%A9%B6%E8%88%87%E5%BE%8C%E7%BA%8C%E8%99%95%E7%90%86%E8%87%AA%E5%8B%95%E4%B8%8B%E8%BC%89"><span class="nav-number">1.</span> <span class="nav-text">證交所買賣交易日報驗證碼 開源專案研究與後續處理自動下載</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E6%BA%90%E5%B0%88%E6%A1%88"><span class="nav-number">1.1.</span> <span class="nav-text">開源專案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E6%BA%90%E5%B0%88%E6%A1%88%E7%9A%84%E5%BE%8C%E7%BA%8C%E5%8A%A0%E5%B7%A5"><span class="nav-number">1.2.</span> <span class="nav-text">開源專案的後續加工</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E8%AD%89%E4%BA%A4%E6%89%80%E8%B2%B7%E8%B3%A3%E4%BA%A4%E6%98%93%E6%97%A5%E5%A0%B1%E7%9A%84%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">下載證交所買賣交易日報的程式</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hank Chang"
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name">Hank Chang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HankChangGSS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HankChangGSS" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      連結
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.darkthread.net/" title="https:&#x2F;&#x2F;blog.darkthread.net&#x2F;" rel="noopener" target="_blank">黑暗執行緒</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.miniasp.com/" title="https:&#x2F;&#x2F;blog.miniasp.com&#x2F;" rel="noopener" target="_blank">The Will Will Web</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://studyhost.blogspot.com/" title="http:&#x2F;&#x2F;studyhost.blogspot.com&#x2F;" rel="noopener" target="_blank">董大偉 .NET Walker</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rainmakerho.github.io/" title="https:&#x2F;&#x2F;rainmakerho.github.io&#x2F;" rel="noopener" target="_blank">亂馬客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.webapp.com.tw/News/default.aspx" title="http:&#x2F;&#x2F;www.webapp.com.tw&#x2F;News&#x2F;default.aspx" rel="noopener" target="_blank">格子樑 艾倫郭 最新消息</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/supershowwei/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;supershowwei&#x2F;" rel="noopener" target="_blank">軟體主廚的程式料理廚房</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/NewArticles/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;NewArticles&#x2F;" rel="noopener" target="_blank">點部落新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.coderbridge.com/?category=latest" title="https:&#x2F;&#x2F;www.coderbridge.com&#x2F;?category&#x3D;latest" rel="noopener" target="_blank">CoderBridge 新進文章</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-book-open"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hank Chang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
