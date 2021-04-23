@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="MAX API 自動化交易                          其他雜記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="數位貨幣-交易所測試 (3)">
+<meta property="og:url" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/index.html">
+<meta property="og:site_name" content="Hank&#39;s Memo">
+<meta property="og:description" content="MAX API 自動化交易                          其他雜記">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/API1.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/API2.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/DownloadGoLinux.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/API3.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/MAXBOT1.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/MAXBOT2.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Trade1.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Trade2.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Trade3.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Trade4.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Trade5.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Trade6.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/Account.png">
+<meta property="article:published_time" content="2021-04-23T14:09:00.000Z">
+<meta property="article:modified_time" content="2021-04-23T15:44:28.465Z">
+<meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="digital currency">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/API1.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>數位貨幣-交易所測試 (3) | Hank's Memo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hank's Memo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-文章列表">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-標籤">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-關於我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於我</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/23/202104/20210423-DigiCur3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="Hank Chang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hank's Memo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          數位貨幣-交易所測試 (3)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-23 22:09:00 / Modified: 23:44:28" itemprop="dateCreated datePublished" datetime="2021-04-23T22:09:00+08:00">2021-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fintech/" itemprop="url" rel="index"><span itemprop="name">fintech</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="note default">
+            <p>MAX API 自動化交易</p>
+          </div>
+
+<div class="note default">
+            <p>其他雜記</p>
+          </div>
+
+<a id="more"></a>
+
+<h2 id="MAX-API-自動化交易"><a href="#MAX-API-自動化交易" class="headerlink" title="MAX API 自動化交易"></a>MAX API 自動化交易</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天無意中發現 MAX API 的教學資料，實作起來也不困難，而且也在今天各主流幣大跌時趁亂賺了一小筆意外之財，所以在這邊記錄一下，供往後繼續深入研究。</p>
+<h3 id="參考資料-重要連結"><a href="#參考資料-重要連結" class="headerlink" title="參考資料 ( 重要連結 )"></a>參考資料 ( 重要連結 )</h3><p><a target="_blank" rel="noopener" href="https://c9s.medium.com/%E9%97%9C%E6%96%BC-bbgo-q-a-16e05f9439c7">關於 BBGO — Q &amp; A</a><br><a target="_blank" rel="noopener" href="https://c9s.medium.com/bbgo-%E5%9C%A8%E5%AE%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%91%E7%B6%B2%E6%A0%BC%E7%AD%96%E7%95%A5%E7%A8%8B%E5%BC%8F-cdb59e171cf9">BBGO — 在家也可以跑網格策略程式</a><br><a target="_blank" rel="noopener" href="https://gist.github.com/c9s/a3e60415fe31db0a0f31749a37f843b7">BBGO 之 MAX 交易所網格設定指南</a></p>
+<h3 id="實作過程"><a href="#實作過程" class="headerlink" title="實作過程"></a>實作過程</h3><h4 id="申請-MAX-交易所的-API-KEY"><a href="#申請-MAX-交易所的-API-KEY" class="headerlink" title="申請 MAX 交易所的 API KEY"></a>申請 MAX 交易所的 API KEY</h4><ol>
+<li><p>登入 MAX 網站後，由右上方的功能列表的帳號選單 ( 即自己的姓名 ) 點選後，再選「安全設定」-&gt;「 API 密鑰設定」<br><img src="/2021/04/23/202104/20210423-DigiCur3/API1.png" alt="API"></p>
+</li>
+<li><p>建立新密鑰後，需先找地方複製產出的密鑰。<br><img src="/2021/04/23/202104/20210423-DigiCur3/API2.png" alt="API"></p>
+</li>
+</ol>
+<h4 id="安裝-Go-環境"><a href="#安裝-Go-環境" class="headerlink" title="安裝 Go 環境"></a>安裝 Go 環境</h4><p>由於目前已有現成的 linux VM 環境，所以 OS 的部份不用另外費心。 而因為 BBGO 自動交易程式是用 Golang 寫成，所以要先到 <a target="_blank" rel="noopener" href="https://golang.org/doc/install">官網</a> 下載並安裝。</p>
+<ol>
+<li><p>切換至 Linux 頁籤並下載<br><img src="/2021/04/23/202104/20210423-DigiCur3/DownloadGoLinux.png" alt="DownloadGo"></p>
+</li>
+<li><p>解壓縮<br>參考上述官網指令，進行解壓縮。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/<span class="built_in">local</span>/go &amp;&amp; tar -C /usr/<span class="built_in">local</span> -xzf go1.16.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<ul>
+<li>需先建立 /usr/local/go 資料夾</li>
+<li>特殊的資料夾需有 root 權限，否則無法順利解壓縮</li>
+<li>目前對 linux 權限管理不熟，先用一個可能不算好的解法，可暫時解決無權限可解壓縮的問題，但正確性及安全性仍待確認。 參考連結: <a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/541961f446a3e2a1933bb5cc561ac256.html">文件夹权限问题</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>設定環境變數</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/go/bin</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="安裝並設定-BBGO-程式"><a href="#安裝並設定-BBGO-程式" class="headerlink" title="安裝並設定 BBGO 程式"></a>安裝並設定 BBGO 程式</h4><ol>
+<li><p>參考 <a target="_blank" rel="noopener" href="https://c9s.medium.com/bbgo-%E5%9C%A8%E5%AE%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%91%E7%B6%B2%E6%A0%BC%E7%AD%96%E7%95%A5%E7%A8%8B%E5%BC%8F-cdb59e171cf9">BBGO — 在家也可以跑網格策略程式</a> 這篇教學所提供的指令，執行它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -s https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;c9s&#x2F;bbgo&#x2F;main&#x2F;scripts&#x2F;setup-grid.sh)</span><br></pre></td></tr></table></figure></li>
+<li><p>根據提示設定 API KEY 後，可看到產出的 .env.local 檔案內容如下<br><img src="/2021/04/23/202104/20210423-DigiCur3/API3.png" alt="API"></p>
+</li>
+<li><p>參考教學文章，將策略設定改為自己試用的 MAXTWD 商品， bbgo.yaml 大概會長這個樣子。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">riskControls:</span></span><br><span class="line">  <span class="attr">sessionBased:</span></span><br><span class="line">    <span class="attr">max:</span>   <span class="comment"># 這邊是針對 MAX 交易所設定的風險控管</span></span><br><span class="line">      <span class="attr">orderExecutor:</span></span><br><span class="line">        <span class="attr">bySymbol:</span></span><br><span class="line">          <span class="attr">MAXTWD:</span> <span class="comment"># 這邊是要啟用風險控管的市場 BTC=Base USDT=Quote</span></span><br><span class="line">            <span class="attr">basic:</span>   <span class="comment"># 使用基本的風險控管功能</span></span><br><span class="line">              <span class="attr">minQuoteBalance:</span> <span class="number">50000.0</span>     <span class="comment"># 最少要保留多少 TWD</span></span><br><span class="line">              <span class="attr">maxBaseAssetBalance:</span> <span class="number">8000.0</span>   <span class="comment"># 最多可以買到多少 MAX</span></span><br><span class="line">              <span class="attr">minBaseAssetBalance:</span> <span class="number">3000.0</span>   <span class="comment"># 最少要保留多少 MAX 避免賣超</span></span><br><span class="line">              <span class="attr">maxOrderAmount:</span> <span class="number">15000.0</span>       <span class="comment"># 每單最多的金額，這邊是 TWD</span></span><br><span class="line"></span><br><span class="line"><span class="attr">exchangeStrategies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">on:</span> <span class="string">max</span>   <span class="comment"># 策略要跑在 MAX</span></span><br><span class="line">  <span class="attr">grid:</span>     <span class="comment"># 使用內建的基本網格策略</span></span><br><span class="line">    <span class="attr">symbol:</span> <span class="string">MAXTWD</span>     </span><br><span class="line">    <span class="attr">quantity:</span> <span class="number">1000</span></span><br><span class="line">    <span class="attr">gridNumber:</span> <span class="number">5</span>     </span><br><span class="line">    <span class="attr">profitSpread:</span> <span class="number">0.5</span>  </span><br><span class="line">    <span class="attr">upperPrice:</span> <span class="number">12.51</span> <span class="comment"># 網格最上方的價格</span></span><br><span class="line">    <span class="attr">lowerPrice:</span> <span class="number">10.01</span> <span class="comment"># 網格最下方的價格</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>執行自動化交易程式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .env.local &amp;&amp; ./bbgo run --config bbgo.yaml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>程式執行中的畫面如下，過程式剛好也有順利成交 :)<br><img src="/2021/04/23/202104/20210423-DigiCur3/MAXBOT1.png" alt="BOT"><br><img src="/2021/04/23/202104/20210423-DigiCur3/MAXBOT2.png" alt="BOT"></p>
+</li>
+</ol>
+<h2 id="其他雜記"><a href="#其他雜記" class="headerlink" title="其他雜記"></a>其他雜記</h2><ol>
+<li>最近這兩週申請幣安帳號，做 KYC 一直卡在最後一關被退 (即類似 FaceID 的驗證一直沒過) 不知道原因是啥。</li>
+<li>因為沒順利弄完幣安帳號，所以又到處亂申請了一些帳號，反而很意外的順利申請好 BlockFi 。 這邊暫時沒遇到什麼額度或身份驗證的問題，用起來還蠻滿意的。</li>
+<li>MAX 交易所有時在穩定幣如 USDT、USDC 等有高度溢價，所以也申請好了由國內外幣帳號約定轉入 BlockFi 。<ul>
+<li>連續兩天轉出 2xxx 美金，找白天空檔休息時間申請，到了晚上美東交易時間(跟台北相差 12 小時) 10 點多就確認入帳。</li>
+<li>費用有: 銀行轉帳時手續費 400 (其中內含郵電費 300 )，實際到帳會再少美金 22 元，轉出一次總費用可粗抓 TWD 1,000。</li>
+<li>BlockFi 收到的美金會 1:1 轉成 GUSD，然後可再 1:1 Trade 換成 USDC ( USDT 不一定能 1:1 全換)。<br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade1.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade2.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade3.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade4.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade5.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade6.png" alt="Trade"></li>
+</ul>
+</li>
+<li>BlockFi 存 USDC 年化報酬，目前是 8.6 % ，其中， Accrued Interest 應該是每天更新一次，然後據說每月配息，未來實際收息後再來驗證。<br><img src="/2021/04/23/202104/20210423-DigiCur3/Account.png" alt="Account"></li>
+<li>目前仍在申請中的服務或商品<ul>
+<li>永豐大戶的兩張信用卡 (可測試信用卡買幣的費用及回饋金)</li>
+<li>Bitfinex 帳號 (用來信用卡買幣的交易所)</li>
+<li>Crypto.com公司所推出的加密貨幣簽帳金融卡（Cryptocurrency Debit Card）</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/digital-currency/" rel="tag"># digital currency</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/14/202104/tensorflow-in-practice/" rel="prev" title="DeepLearning.AI TensorFlow Developer 筆記">
+      <i class="fa fa-chevron-left"></i> DeepLearning.AI TensorFlow Developer 筆記
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MAX-API-%E8%87%AA%E5%8B%95%E5%8C%96%E4%BA%A4%E6%98%93"><span class="nav-number">1.</span> <span class="nav-text">MAX API 自動化交易</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99-%E9%87%8D%E8%A6%81%E9%80%A3%E7%B5%90"><span class="nav-number">1.2.</span> <span class="nav-text">參考資料 ( 重要連結 )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E9%81%8E%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">實作過程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B3%E8%AB%8B-MAX-%E4%BA%A4%E6%98%93%E6%89%80%E7%9A%84-API-KEY"><span class="nav-number">1.3.1.</span> <span class="nav-text">申請 MAX 交易所的 API KEY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Go-%E7%92%B0%E5%A2%83"><span class="nav-number">1.3.2.</span> <span class="nav-text">安裝 Go 環境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E4%B8%A6%E8%A8%AD%E5%AE%9A-BBGO-%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">安裝並設定 BBGO 程式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9B%9C%E8%A8%98"><span class="nav-number">2.</span> <span class="nav-text">其他雜記</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hank Chang"
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name">Hank Chang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HankChangGSS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HankChangGSS" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      連結
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.darkthread.net/" title="https:&#x2F;&#x2F;blog.darkthread.net&#x2F;" rel="noopener" target="_blank">黑暗執行緒</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.miniasp.com/" title="https:&#x2F;&#x2F;blog.miniasp.com&#x2F;" rel="noopener" target="_blank">The Will Will Web</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://studyhost.blogspot.com/" title="http:&#x2F;&#x2F;studyhost.blogspot.com&#x2F;" rel="noopener" target="_blank">董大偉 .NET Walker</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rainmakerho.github.io/" title="https:&#x2F;&#x2F;rainmakerho.github.io&#x2F;" rel="noopener" target="_blank">亂馬客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.webapp.com.tw/News/default.aspx" title="http:&#x2F;&#x2F;www.webapp.com.tw&#x2F;News&#x2F;default.aspx" rel="noopener" target="_blank">格子樑 艾倫郭 最新消息</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/supershowwei/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;supershowwei&#x2F;" rel="noopener" target="_blank">軟體主廚的程式料理廚房</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/NewArticles/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;NewArticles&#x2F;" rel="noopener" target="_blank">點部落新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.coderbridge.com/?category=latest" title="https:&#x2F;&#x2F;www.coderbridge.com&#x2F;?category&#x3D;latest" rel="noopener" target="_blank">CoderBridge 新進文章</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-book-open"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hank Chang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
