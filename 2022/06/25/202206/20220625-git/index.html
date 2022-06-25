@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="2022-06-25 git 雜記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2022-06-25 git 雜記">
+<meta property="og:url" content="http://yoursite.com/2022/06/25/202206/20220625-git/index.html">
+<meta property="og:site_name" content="Hank&#39;s Memo">
+<meta property="og:description" content="2022-06-25 git 雜記">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/001.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/002.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/003.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/004.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/005.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/006.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/007.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/008.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/hexo_01.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/hexo_02.png">
+<meta property="og:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/hexo_03.png">
+<meta property="article:published_time" content="2022-06-25T05:44:28.000Z">
+<meta property="article:modified_time" content="2022-06-25T06:11:22.499Z">
+<meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="sourcetree -hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2022/06/25/202206/20220625-git/001.png">
+
+<link rel="canonical" href="http://yoursite.com/2022/06/25/202206/20220625-git/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>2022-06-25 git 雜記 | Hank's Memo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hank's Memo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-文章列表">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-標籤">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-關於我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於我</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/25/202206/20220625-git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="Hank Chang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hank's Memo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2022-06-25 git 雜記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-25 13:44:28 / Modified: 14:11:22" itemprop="dateCreated datePublished" datetime="2022-06-25T13:44:28+08:00">2022-06-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/" itemprop="url" rel="index"><span itemprop="name">技術</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="note default">
+            <p>2022-06-25 git 雜記</p>
+          </div>
+
+<a id="more"></a>
+
+<h2 id="在-openSUSE-安裝-git"><a href="#在-openSUSE-安裝-git" class="headerlink" title="在 openSUSE 安裝 git"></a>在 openSUSE 安裝 git</h2><h3 id="安裝指令與參考網站"><a href="#安裝指令與參考網站" class="headerlink" title="安裝指令與參考網站"></a>安裝指令與參考網站</h3><ul>
+<li>安裝指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo zypper <span class="keyword">in</span> git-core  </span><br><span class="line"></span><br><span class="line">git --version</span><br></pre></td></tr></table></figure></li>
+<li>參考網站<br><a target="_blank" rel="noopener" href="https://nanxiao.me/en/how-to-install-git-on-suse/">How to install git on SUSE</a></li>
+</ul>
+<h2 id="Sourcetree-密碼權限設定"><a href="#Sourcetree-密碼權限設定" class="headerlink" title="Sourcetree 密碼權限設定"></a>Sourcetree 密碼權限設定</h2><ol>
+<li>在使用 Sourcetree push 到 Bitbucket 時，出現以下錯誤訊息<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bitbucket Cloud recently stopped supporting account passwords for Git authentication</span><br></pre></td></tr></table></figure></li>
+<li>根據錯誤訊息，找到<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/71472009/bitbucket-cloud-recently-stopped-supporting-account-passwords-for-git-authentica">解決方式</a></li>
+</ol>
+<p>摘錄回文A (重要設定步驟)</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In personal Settings, in the left panel you will find &quot;access management&quot;</span><br><span class="line"></span><br><span class="line">Under that you will find &quot;app passwords&quot;</span><br><span class="line"></span><br><span class="line">Click on that --&gt; Then you will routed to create app password page</span><br><span class="line"></span><br><span class="line">There you can give the required permissions and create password (Note: You have to store that password somewhere as it will be displayed only once)</span><br><span class="line"></span><br><span class="line">When you push the code to any repo...use your app password instead of your account password (No need to change any settings in the git_config file)</span><br></pre></td></tr></table></figure>
+
+<p>摘錄回文B (調整後的 URL 格式)</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://&#123;&#123;BitbucketUsername&#125;&#125;:&#123;&#123;AppPassword&#125;&#125;@bitbucket.org/&#123;&#123;RepoName&#125;&#125;.git</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>step by step 實作</li>
+</ol>
+<ul>
+<li><p>在<a target="_blank" rel="noopener" href="https://bitbucket.org/dashboard/overview"> Bitbucket </a>進入 Personal settings 頁面<br><img src="/2022/06/25/202206/20220625-git/001.png" alt="001"></p>
+</li>
+<li><p>進入 App passwords 頁面<br><img src="/2022/06/25/202206/20220625-git/002.png" alt="002"></p>
+</li>
+<li><p>填寫 Label ，勾選適當權限，按下 Create 按鈕<br><img src="/2022/06/25/202206/20220625-git/003.png" alt="003"></p>
+</li>
+<li><p>看到彈現出的視窗後，記得儲存該密碼<br><img src="/2022/06/25/202206/20220625-git/004.png" alt="004"></p>
+</li>
+<li><p>回到 Sourcetree 程式，點擊右上角的 Settings 齒輪圖示<br><img src="/2022/06/25/202206/20220625-git/005.png" alt="005"></p>
+</li>
+<li><p>點選 Path 後，再按下 Edit 按鈕<br><img src="/2022/06/25/202206/20220625-git/006.png" alt="006"></p>
+</li>
+<li><p>依下列規則調整 URL/Path</p>
+<ul>
+<li>假設先前取得的密碼是 1rTKwWrlMwyUesWe5jB3，在密碼前碼加上: 再放回原始設定值中的 @ 前方</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:1rTKwWrlMwyUesWe5jB3 (在密碼前碼加上:)</span><br><span class="line"></span><br><span class="line">https://hccga7@bitbucket.org/hccga7/sourcetree_practice.git (原始值)</span><br><span class="line"></span><br><span class="line">https://hccga7:1rTKwWrlMwyUesWe5jB3@bitbucket.org/hccga7/sourcetree_practice.git (調整後)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>設定完成後，即可成功 push<br><img src="/2022/06/25/202206/20220625-git/007.png" alt="007"></li>
+</ul>
+<h3 id="未整理的部份"><a href="#未整理的部份" class="headerlink" title="未整理的部份"></a>未整理的部份</h3><p>C:\Users\HUNGCHIA\AppData\Local\Atlassian\Sourcetree  </p>
+<p>Bitbucket Cloud recently stopped supporting account passwords for Git authentication.  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin https://&lt;Bitbucket_Username&gt;:&lt;App_Password&gt;@bitbucket.org/&lt;Repo_Name&gt;.git  </span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://bitbucket.org/hccga7:4???wWr*&amp;*w???SwE5jb7@bitbucket.org/hccga7/sourcetree_practice.git/  </span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://&lt;Bitbucket_Username&gt;:&lt;App_Password&gt;@bitbucket.org/&lt;Repo_Name&gt;.git  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://hccga7:4RtKwWrLmwyUeSwE5jb7@bitbucket.org/hccga7/sourcetree_practice.git">https://hccga7:4RtKwWrLmwyUeSwE5jb7@bitbucket.org/hccga7/sourcetree_practice.git</a></p>
+<h3 id="未整理的部份-SSH"><a href="#未整理的部份-SSH" class="headerlink" title="未整理的部份-SSH"></a>未整理的部份-SSH</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin git@github.com:user_name/project.git</span><br><span class="line">git remote <span class="built_in">set</span>-url origin git@github.com:HankChangGSS/GitIoSrc.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>文章重點備份</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3431314/github-no-supported-authentication-methods-available">github: No supported authentication methods available</a>  </p>
+<ul>
+<li>Using TortoiseGit<br>TortoiseGit &gt; Settings … Network … SSH Client: C:\Program Files\Git\usr\bin\ssh.exe<br>Location my vary. On one computer it was in C:\Program Files (x86)\Git\bin\ssh.exe<br><img src="/2022/06/25/202206/20220625-git/008.png" alt="008"></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.minwt.com/webdesign-dev/html/23197.html">GitHub 將不再支援以帳密的方式登入改採SSH，如何在GitHub配置SSH KEY</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005125610">设置 SSH 使用 hexo deploy 时免输用户名密码</a><br>  <img src="/2022/06/25/202206/20220625-git/hexo_01.png" alt="001"><br>  <img src="/2022/06/25/202206/20220625-git/hexo_02.png" alt="001"><br>  <img src="/2022/06/25/202206/20220625-git/hexo_03.png" alt="001"></p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- [使用 SSH 金鑰與 GitHub 連線](https://cynthiachuang.github.io/Generating-a-Ssh-Key-and-Adding-It-to-the-Github/)  
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;hankchanggss@gmail.com&quot;</span></span><br></pre></td></tr></table></figure></code></pre>
+<p>D:\Blog\_ssh_key&gt;ssh-keygen -t rsa -b 4096 -C “<a href="mailto:&#104;&#x61;&#x6e;&#x6b;&#99;&#x68;&#x61;&#x6e;&#103;&#103;&#x73;&#x73;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#104;&#x61;&#x6e;&#x6b;&#99;&#x68;&#x61;&#x6e;&#103;&#103;&#x73;&#x73;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a>“<br>Generating public/private rsa key pair.<br>Enter file in which to save the key (C:\Users\HUNGCHIA/.ssh/id_rsa):<br>C:\Users\HUNGCHIA/.ssh/id_rsa already exists.<br>Overwrite (y/n)? y<br>Enter passphrase (empty for no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved in C:\Users\HUNGCHIA/.ssh/id_rsa.<br>Your public key has been saved in C:\Users\HUNGCHIA/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>SHA256:/kMIrvJr1/LJWuDf62YUVLcV0C9uuE3+m66zx8RwlQw <a href="mailto:&#x68;&#x61;&#x6e;&#x6b;&#x63;&#104;&#x61;&#110;&#x67;&#x67;&#115;&#115;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x68;&#x61;&#x6e;&#x6b;&#x63;&#104;&#x61;&#110;&#x67;&#x67;&#115;&#115;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a><br>The key’s randomart image is:<br>+—[RSA 4096]—-+<br>|           ..E*.+|<br>|          .  . *.|<br>|         .    . o|<br>|      .   .  ….|<br>|     …S. . o+. |<br>|     ..o. o . +o |<br>|     …oo   <em>o  |<br>|  . o o+.++ ..oo.|<br>|   +oo.+=+=o o</em>=o|<br>+—-[SHA256]—–+</p>
+<p>D:\Blog\_ssh_key&gt;  </p>
+<p>eval “$(ssh-agent -s)”<br>ssh-add ~/.ssh/id_rsa</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/sourcetree-hexo/" rel="tag"># sourcetree -hexo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/23/202104/20210423-DigiCur3/" rel="prev" title="數位貨幣-交易所測試 (3)">
+      <i class="fa fa-chevron-left"></i> 數位貨幣-交易所測試 (3)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-openSUSE-%E5%AE%89%E8%A3%9D-git"><span class="nav-number">1.</span> <span class="nav-text">在 openSUSE 安裝 git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E6%8C%87%E4%BB%A4%E8%88%87%E5%8F%83%E8%80%83%E7%B6%B2%E7%AB%99"><span class="nav-number">1.1.</span> <span class="nav-text">安裝指令與參考網站</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sourcetree-%E5%AF%86%E7%A2%BC%E6%AC%8A%E9%99%90%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.</span> <span class="nav-text">Sourcetree 密碼權限設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%95%B4%E7%90%86%E7%9A%84%E9%83%A8%E4%BB%BD"><span class="nav-number">2.1.</span> <span class="nav-text">未整理的部份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%95%B4%E7%90%86%E7%9A%84%E9%83%A8%E4%BB%BD-SSH"><span class="nav-number">2.2.</span> <span class="nav-text">未整理的部份-SSH</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hank Chang"
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name">Hank Chang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HankChangGSS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HankChangGSS" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      連結
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.darkthread.net/" title="https:&#x2F;&#x2F;blog.darkthread.net&#x2F;" rel="noopener" target="_blank">黑暗執行緒</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.miniasp.com/" title="https:&#x2F;&#x2F;blog.miniasp.com&#x2F;" rel="noopener" target="_blank">The Will Will Web</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://studyhost.blogspot.com/" title="http:&#x2F;&#x2F;studyhost.blogspot.com&#x2F;" rel="noopener" target="_blank">董大偉 .NET Walker</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rainmakerho.github.io/" title="https:&#x2F;&#x2F;rainmakerho.github.io&#x2F;" rel="noopener" target="_blank">亂馬客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.webapp.com.tw/News/default.aspx" title="http:&#x2F;&#x2F;www.webapp.com.tw&#x2F;News&#x2F;default.aspx" rel="noopener" target="_blank">格子樑 艾倫郭 最新消息</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/supershowwei/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;supershowwei&#x2F;" rel="noopener" target="_blank">軟體主廚的程式料理廚房</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/NewArticles/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;NewArticles&#x2F;" rel="noopener" target="_blank">點部落新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.coderbridge.com/explore?category=latest" title="https:&#x2F;&#x2F;www.coderbridge.com&#x2F;explore?category&#x3D;latest" rel="noopener" target="_blank">CoderBridge 新進文章</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-book-open"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hank Chang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
