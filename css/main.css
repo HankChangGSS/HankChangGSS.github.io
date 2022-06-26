@@ -1210,7 +1210,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #01ffff;
+  background: #c1eb17;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2587,4 +2587,10 @@ mjx-container + br {
 }
 .links-of-blogroll-item {
   padding: 0;
+}
+.ChtLaw table .ChtLawArticle {
+  display: inline-block; width:60px
+}
+.ChtLaw table .ChtLawAudio {
+  width:100px
 }
