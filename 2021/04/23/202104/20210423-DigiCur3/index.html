@@ -266,7 +266,7 @@
             <p>其他雜記</p>
           </div>
 
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="MAX-API-自動化交易"><a href="#MAX-API-自動化交易" class="headerlink" title="MAX API 自動化交易"></a>MAX API 自動化交易</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天無意中發現 MAX API 的教學資料，實作起來也不困難，而且也在今天各主流幣大跌時趁亂賺了一小筆意外之財，所以在這邊記錄一下，供往後繼續深入研究。</p>
 <h3 id="參考資料-重要連結"><a href="#參考資料-重要連結" class="headerlink" title="參考資料 ( 重要連結 )"></a>參考資料 ( 重要連結 )</h3><p><a target="_blank" rel="noopener" href="https://c9s.medium.com/%E9%97%9C%E6%96%BC-bbgo-q-a-16e05f9439c7">關於 BBGO — Q &amp; A</a><br><a target="_blank" rel="noopener" href="https://c9s.medium.com/bbgo-%E5%9C%A8%E5%AE%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%91%E7%B6%B2%E6%A0%BC%E7%AD%96%E7%95%A5%E7%A8%8B%E5%BC%8F-cdb59e171cf9">BBGO — 在家也可以跑網格策略程式</a><br><a target="_blank" rel="noopener" href="https://gist.github.com/c9s/a3e60415fe31db0a0f31749a37f843b7">BBGO 之 MAX 交易所網格設定指南</a></p>
@@ -281,16 +281,16 @@
 <li><p>切換至 Linux 頁籤並下載<br><img src="/2021/04/23/202104/20210423-DigiCur3/DownloadGoLinux.png" alt="DownloadGo"></p>
 </li>
 <li><p>解壓縮<br>參考上述官網指令，進行解壓縮。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/<span class="built_in">local</span>/go &amp;&amp; tar -C /usr/<span class="built_in">local</span> -xzf go1.16.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/<span class="built_in">local</span>/go &amp;&amp; tar -C /usr/<span class="built_in">local</span> -xzf go1.16.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure></li>
+</ol>
 <ul>
 <li>需先建立 /usr/local/go 資料夾</li>
 <li>特殊的資料夾需有 root 權限，否則無法順利解壓縮</li>
 <li>目前對 linux 權限管理不熟，先用一個可能不算好的解法，可暫時解決無權限可解壓縮的問題，但正確性及安全性仍待確認。 參考連結: <a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/541961f446a3e2a1933bb5cc561ac256.html">文件夹权限问题</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</li>
-<li><p>設定環境變數</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/go/bin</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>設定環境變數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/go/bin</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -310,20 +310,22 @@
 <h2 id="其他雜記"><a href="#其他雜記" class="headerlink" title="其他雜記"></a>其他雜記</h2><ol>
 <li>最近這兩週申請幣安帳號，做 KYC 一直卡在最後一關被退 (即類似 FaceID 的驗證一直沒過) 不知道原因是啥。</li>
 <li>因為沒順利弄完幣安帳號，所以又到處亂申請了一些帳號，反而很意外的順利申請好 BlockFi 。 這邊暫時沒遇到什麼額度或身份驗證的問題，用起來還蠻滿意的。</li>
-<li>MAX 交易所有時在穩定幣如 USDT、USDC 等有高度溢價，所以也申請好了由國內外幣帳號約定轉入 BlockFi 。<ul>
+<li>MAX 交易所有時在穩定幣如 USDT、USDC 等有高度溢價，所以也申請好了由國內外幣帳號約定轉入 BlockFi 。</li>
+</ol>
+<ul>
 <li>連續兩天轉出 2xxx 美金，找白天空檔休息時間申請，到了晚上美東交易時間(跟台北相差 12 小時) 10 點多就確認入帳。</li>
 <li>費用有: 銀行轉帳時手續費 400 (其中內含郵電費 300 )，實際到帳會再少美金 22 元，轉出一次總費用可粗抓 TWD 1,000。</li>
 <li>BlockFi 收到的美金會 1:1 轉成 GUSD，然後可再 1:1 Trade 換成 USDC ( USDT 不一定能 1:1 全換)。<br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade1.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade2.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade3.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade4.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade5.png" alt="Trade"><br><img src="/2021/04/23/202104/20210423-DigiCur3/Trade6.png" alt="Trade"></li>
 </ul>
-</li>
+<ol start="4">
 <li>BlockFi 存 USDC 年化報酬，目前是 8.6 % ，其中， Accrued Interest 應該是每天更新一次，然後據說每月配息，未來實際收息後再來驗證。<br><img src="/2021/04/23/202104/20210423-DigiCur3/Account.png" alt="Account"></li>
-<li>目前仍在申請中的服務或商品<ul>
+<li>目前仍在申請中的服務或商品</li>
+</ol>
+<ul>
 <li>永豐大戶的兩張信用卡 (可測試信用卡買幣的費用及回饋金)</li>
 <li>Bitfinex 帳號 (用來信用卡買幣的交易所)</li>
 <li>Crypto.com公司所推出的加密貨幣簽帳金融卡（Cryptocurrency Debit Card）</li>
 </ul>
-</li>
-</ol>
 
     </div>
 
@@ -422,7 +424,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -433,7 +435,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
