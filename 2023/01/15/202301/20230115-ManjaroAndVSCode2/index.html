@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="20230115-Manjaro 與 VSCode 綜合練習2 (類別庫)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20230115-Manjaro 與 VSCode 綜合練習2 (類別庫)">
+<meta property="og:url" content="http://yoursite.com/2023/01/15/202301/20230115-ManjaroAndVSCode2/index.html">
+<meta property="og:site_name" content="Hank&#39;s Memo">
+<meta property="og:description" content="20230115-Manjaro 與 VSCode 綜合練習2 (類別庫)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://yoursite.com/2023/01/15/202301/20230115-ManjaroAndVSCode2/20230115-ManjaroAndVSCode/run_prog.png">
+<meta property="article:published_time" content="2023-01-15T12:00:53.000Z">
+<meta property="article:modified_time" content="2023-01-15T12:24:19.945Z">
+<meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="VS Code">
+<meta property="article:tag" content="Manjaro">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/15/202301/20230115-ManjaroAndVSCode2/20230115-ManjaroAndVSCode/run_prog.png">
+
+<link rel="canonical" href="http://yoursite.com/2023/01/15/202301/20230115-ManjaroAndVSCode2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>20230115-Manjaro 與 VSCode 綜合練習2 (類別庫) | Hank's Memo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hank's Memo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-文章列表">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-標籤">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-關於我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於我</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/15/202301/20230115-ManjaroAndVSCode2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="Hank Chang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hank's Memo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          20230115-Manjaro 與 VSCode 綜合練習2 (類別庫)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-15 20:00:53 / Modified: 20:24:19" itemprop="dateCreated datePublished" datetime="2023-01-15T20:00:53+08:00">2023-01-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/" itemprop="url" rel="index"><span itemprop="name">技術</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/c/" itemprop="url" rel="index"><span itemprop="name">c#</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="note default">
+            <p>20230115-Manjaro 與 VSCode 綜合練習2 (類別庫)</p>
+          </div>
+
+<span id="more"></span>
+
+<h2 id="新增類別庫專案"><a href="#新增類別庫專案" class="headerlink" title="新增類別庫專案"></a>新增類別庫專案</h2><ul>
+<li><p>新增類別庫參考語法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new classlib -o StringLibrary</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio-code?pivots=dotnet-7-0">Tutorial: Create a .NET class library using Visual Studio Code</a></p>
+</li>
+<li><p>建置置專案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet build /home/hcc/DotNetCore/HankService/ChatGPT/ChatGPT.csproj</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="專案配置成果"><a href="#專案配置成果" class="headerlink" title="專案配置成果"></a>專案配置成果</h2><ul>
+<li>建置類別庫</li>
+<li>建置主程式專案</li>
+<li>執行主程式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dotnet run</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HankService-ChatGPT"><a href="#HankService-ChatGPT" class="headerlink" title="HankService.ChatGPT"></a>HankService.ChatGPT</h3><ul>
+<li>/home/hcc/DotNetCore/HankService/ChatGPT/ChatGPT.csproj<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">Sdk</span>=<span class="string">&quot;Microsoft.NET.Sdk&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TargetFramework</span>&gt;</span>net7.0<span class="tag">&lt;/<span class="name">TargetFramework</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImplicitUsings</span>&gt;</span>enable<span class="tag">&lt;/<span class="name">ImplicitUsings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Nullable</span>&gt;</span>enable<span class="tag">&lt;/<span class="name">Nullable</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PackageReference</span> <span class="attr">Include</span>=<span class="string">&quot;Microsoft.Extensions.Configuration&quot;</span> <span class="attr">Version</span>=<span class="string">&quot;7.0.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PackageReference</span> <span class="attr">Include</span>=<span class="string">&quot;Microsoft.Extensions.Configuration.Binder&quot;</span> <span class="attr">Version</span>=<span class="string">&quot;7.0.2&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PackageReference</span> <span class="attr">Include</span>=<span class="string">&quot;Microsoft.Extensions.Configuration.EnvironmentVariables&quot;</span> <span class="attr">Version</span>=<span class="string">&quot;7.0.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PackageReference</span> <span class="attr">Include</span>=<span class="string">&quot;Microsoft.Extensions.Configuration.Json&quot;</span> <span class="attr">Version</span>=<span class="string">&quot;7.0.0&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>/home/hcc/DotNetCore/HankService/ChatGPT/ChatGPTService.cs<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Net;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Text.Json;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">HankService.ChatGPT</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ChatGPTService</span></span><br><span class="line">    &#123;</span><br><span class="line">        IConfigurationRoot _config;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ChatGPTService</span>(<span class="params">IConfigurationRoot config</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._config = config;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> CompletionsResponse <span class="title">GetResponseByWebClient</span>(<span class="params"><span class="built_in">string</span> prompt</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            WebClient cli;</span><br><span class="line">            <span class="keyword">using</span> (cli = <span class="keyword">new</span> WebClient())</span><br><span class="line">            &#123;</span><br><span class="line">                cli.Encoding = Encoding.GetEncoding(<span class="keyword">this</span>._config[<span class="string">&quot;ChatGPT:Encoding&quot;</span>].ToString());</span><br><span class="line">                cli.Headers[HttpRequestHeader.ContentType] = <span class="keyword">this</span>._config[<span class="string">&quot;ChatGPT:HttpRequestHeader:ContentType&quot;</span>];</span><br><span class="line">                cli.Headers[HttpRequestHeader.Authorization] = <span class="keyword">this</span>._config[<span class="string">&quot;ChatGPT:HttpRequestHeader:Authorization&quot;</span>];</span><br><span class="line">                <span class="built_in">string</span> payload = GetRequestBodyJson(prompt, <span class="number">0</span>, <span class="number">999</span>);</span><br><span class="line">                <span class="built_in">string</span> responseBody = cli.UploadString(<span class="keyword">this</span>._config[<span class="string">&quot;ChatGPT:Host&quot;</span>], payload);</span><br><span class="line">                <span class="keyword">return</span> JsonSerializer.Deserialize&lt;CompletionsResponse&gt;(responseBody);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">GetResponseTextByWebClient</span>(<span class="params"><span class="built_in">string</span> prompt</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.GetResponseByWebClient(prompt).Choices[<span class="number">0</span>].Text;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">GetRequestBodyJson</span>(<span class="params"><span class="built_in">string</span> prompt, <span class="built_in">decimal</span> temperature, <span class="built_in">int</span> maxTokens</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">// Set up the request body</span></span><br><span class="line">            <span class="keyword">var</span> requestBody = <span class="keyword">new</span> CompletionsRequestBody</span><br><span class="line">            &#123;</span><br><span class="line">                Model = <span class="string">&quot;text-davinci-003&quot;</span>,</span><br><span class="line">                Prompt = prompt,</span><br><span class="line">                Temperature = temperature,</span><br><span class="line">                MaxTokens = maxTokens,</span><br><span class="line">                TopP = <span class="number">1.0</span>m,</span><br><span class="line">                FrequencyPenalty = <span class="number">0.0</span>m,</span><br><span class="line">                PresencePenalty = <span class="number">0.0</span>m,</span><br><span class="line">                N = <span class="number">1</span>,</span><br><span class="line">                Stop = <span class="string">&quot;[END]&quot;</span>,</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true</span></span><br><span class="line">            <span class="keyword">var</span> serializerOptions = <span class="keyword">new</span> JsonSerializerOptions</span><br><span class="line">            &#123;</span><br><span class="line">                IgnoreNullValues = <span class="literal">true</span>,</span><br><span class="line">                IgnoreReadOnlyProperties = <span class="literal">true</span>,</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Serialize the request body to JSON using the JsonSerializer.Serialize method overload that takes a JsonSerializerOptions parameter</span></span><br><span class="line">            <span class="keyword">return</span> JsonSerializer.Serialize(requestBody, serializerOptions);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>/home/hcc/DotNetCore/HankService/ChatGPT/CompletionsRequestBody.cs<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Text.Json.Serialization;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="comment">//https://github.com/yuzd/maui_chatgpt/blob/master/chatgpt/Services/ChatGpt/CompletionsRequestBody.cs</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">HankService.ChatGPT</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CompletionsRequestBody</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;model&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Model &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;prompt&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Prompt &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;suffix&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Suffix &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;max_tokens&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> MaxTokens &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;temperature&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">decimal</span> Temperature &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;top_p&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">decimal</span> TopP &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;n&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> N &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;stream&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">bool</span> Stream &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;logprobs&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span>? Logprobs &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;echo&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">bool</span> Echo &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;stop&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Stop &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;presence_penalty&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">decimal</span> PresencePenalty &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;frequency_penalty&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">decimal</span> FrequencyPenalty &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;best_of&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> BestOf &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;logit_bias&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">decimal</span>&gt; LogitBias &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;user&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> User &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CompletionsResponse</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;id&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Id &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;object&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Object &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; <span class="comment">// Escaped with @ symbol</span></span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;created&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> Created &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;model&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Model &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;choices&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> CompletionsChoice[] Choices &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;usage&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> CompletionsUsage Usage &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CompletionsChoice</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;text&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Text &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;index&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> Index &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;logprobs&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">object</span> Logprobs &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;finish_reason&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> FinishReason &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CompletionsUsage</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;prompt_tokens&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> PromptTokens &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;completion_tokens&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> CompletionTokens &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">JsonPropertyName(<span class="meta-string">&quot;total_tokens&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> TotalTokens &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="主程式-Program-cs"><a href="#主程式-Program-cs" class="headerlink" title="主程式 Program.cs"></a>主程式 Program.cs</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Configuration;</span><br><span class="line"><span class="keyword">using</span> HankService.ChatGPT;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> builder = <span class="keyword">new</span> ConfigurationBuilder()</span><br><span class="line">    .SetBasePath(Directory.GetCurrentDirectory())</span><br><span class="line">    .AddJsonFile(<span class="string">&quot;appsettings.json&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> config = builder.Build();</span><br><span class="line"> </span><br><span class="line">ChatGPTService chat = <span class="keyword">new</span> ChatGPTService(config);</span><br><span class="line"><span class="keyword">var</span> t = chat.GetResponseTextByWebClient(<span class="string">&quot;請用 deliberate 造句並翻譯&quot;</span>);</span><br><span class="line">Console.WriteLine(t);</span><br></pre></td></tr></table></figure>
+
+<h3 id="執行結果"><a href="#執行結果" class="headerlink" title="執行結果"></a>執行結果</h3><p><img src="./20230115-ManjaroAndVSCode/run_prog.png" alt="run_prog"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/VS-Code/" rel="tag"># VS Code</a>
+              <a href="/tags/Manjaro/" rel="tag"># Manjaro</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/15/202301/20230115-ManjaroAndVSCode/" rel="prev" title="20230115-Manjaro 與 VSCode 綜合練習">
+      <i class="fa fa-chevron-left"></i> 20230115-Manjaro 與 VSCode 綜合練習
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%A1%9E%E5%88%A5%E5%BA%AB%E5%B0%88%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">新增類別庫專案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%88%E6%A1%88%E9%85%8D%E7%BD%AE%E6%88%90%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">專案配置成果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HankService-ChatGPT"><span class="nav-number">2.1.</span> <span class="nav-text">HankService.ChatGPT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E7%A8%8B%E5%BC%8F-Program-cs"><span class="nav-number">2.2.</span> <span class="nav-text">主程式 Program.cs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="nav-number">2.3.</span> <span class="nav-text">執行結果</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hank Chang"
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name">Hank Chang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HankChangGSS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HankChangGSS" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      連結
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.darkthread.net/" title="https:&#x2F;&#x2F;blog.darkthread.net&#x2F;" rel="noopener" target="_blank">黑暗執行緒</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.miniasp.com/" title="https:&#x2F;&#x2F;blog.miniasp.com&#x2F;" rel="noopener" target="_blank">The Will Will Web</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://studyhost.blogspot.com/" title="http:&#x2F;&#x2F;studyhost.blogspot.com&#x2F;" rel="noopener" target="_blank">董大偉 .NET Walker</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rainmakerho.github.io/" title="https:&#x2F;&#x2F;rainmakerho.github.io&#x2F;" rel="noopener" target="_blank">亂馬客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.webapp.com.tw/News/default.aspx" title="http:&#x2F;&#x2F;www.webapp.com.tw&#x2F;News&#x2F;default.aspx" rel="noopener" target="_blank">格子樑 艾倫郭 最新消息</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/supershowwei/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;supershowwei&#x2F;" rel="noopener" target="_blank">軟體主廚的程式料理廚房</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/NewArticles/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;NewArticles&#x2F;" rel="noopener" target="_blank">點部落新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.coderbridge.com/explore?category=latest" title="https:&#x2F;&#x2F;www.coderbridge.com&#x2F;explore?category&#x3D;latest" rel="noopener" target="_blank">CoderBridge 新進文章</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-book-open"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hank Chang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
