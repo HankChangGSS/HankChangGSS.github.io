@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ChatGPT 教我實作 Anki 演算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20230129-ChatGPT 教我實作 Anki 演算法">
+<meta property="og:url" content="http://yoursite.com/2023/01/29/202301/20230129-ChatGPT_Anki/index.html">
+<meta property="og:site_name" content="Hank&#39;s Memo">
+<meta property="og:description" content="ChatGPT 教我實作 Anki 演算法">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://img.youtube.com/vi/s-G3ineRCUc/0.jpg">
+<meta property="og:image" content="https://img.youtube.com/vi/QumfkMQr47M/0.jpg">
+<meta property="article:published_time" content="2023-01-29T10:02:08.000Z">
+<meta property="article:modified_time" content="2023-01-30T02:38:15.374Z">
+<meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="ChatGPT">
+<meta property="article:tag" content="Anki">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.youtube.com/vi/s-G3ineRCUc/0.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2023/01/29/202301/20230129-ChatGPT_Anki/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>20230129-ChatGPT 教我實作 Anki 演算法 | Hank's Memo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hank's Memo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-文章列表">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-標籤">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-關於我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於我</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/29/202301/20230129-ChatGPT_Anki/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="Hank Chang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hank's Memo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          20230129-ChatGPT 教我實作 Anki 演算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-01-29 18:02:08" itemprop="dateCreated datePublished" datetime="2023-01-29T18:02:08+08:00">2023-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-30 10:38:15" itemprop="dateModified" datetime="2023-01-30T10:38:15+08:00">2023-01-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/" itemprop="url" rel="index"><span itemprop="name">技術</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/ChatGPT/" itemprop="url" rel="index"><span itemprop="name">ChatGPT</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/Anki/" itemprop="url" rel="index"><span itemprop="name">Anki</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="note default">
+            <p>ChatGPT 教我實作 Anki 演算法</p>
+          </div>
+
+<span id="more"></span>
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Anki 演算法一直是我感興趣的主題，但我不知道如何開始實現它。<br>然而，今天我突然有了靈感，我打算問問 ChatGPT，看看能得到什麼幫助。<br>那就廢話不多說，直接開始吧!  </p>
+<h3 id="過程"><a href="#過程" class="headerlink" title="過程"></a>過程</h3><h4 id="步驟1"><a href="#步驟1" class="headerlink" title="步驟1"></a>步驟1</h4><p>問: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我要實作anki演算法，給我c#程式碼，並加上註解</span><br></pre></td></tr></table></figure>
+
+<p>答: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">實作 Anki 演算法的 C# 程式碼可能需要一些較複雜的邏輯與結構，因此我無法提供完整的程式碼給您。</span><br><span class="line">然而，我可以給您一些概念和程式碼片段，讓您可以自行實作。</span><br><span class="line">Anki 演算法的核心思想是使用記憶遺忘曲線來決定哪些卡片需要再次學習。</span><br><span class="line">首先，您需要建立一個卡片類別，其中包含關於卡片的所有資訊，如問題和答案。</span><br><span class="line">然後，您需要建立一個學習管理類別，其中包含所有卡片的列表，以及決定哪些卡片需要再次學習的邏輯。</span><br><span class="line">下面是一個簡單的程式碼片段，描述了如何使用記憶遺忘曲線來決定哪些卡片需要再次學習:</span><br></pre></td></tr></table></figure>
+<p>此處程式碼先略過，最後再貼完整的版本。  </p>
+<h4 id="步驟2"><a href="#步驟2" class="headerlink" title="步驟2"></a>步驟2</h4><p>問: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">給我簡單的c#程式範例，實作anki演算法</span><br></pre></td></tr></table></figure>
+
+<p>答: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是一個簡單的 C# 程式範例，演示如何實作 Anki 演算法：</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Card</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Question &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Answer &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Repetition &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">double</span> EFactor &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> DateTime NextReview &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Card</span>(<span class="params"><span class="built_in">string</span> question, <span class="built_in">string</span> answer</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Question = question;</span><br><span class="line">        Answer = answer;</span><br><span class="line">        Repetition = <span class="number">0</span>;</span><br><span class="line">        EFactor = <span class="number">2.5</span>;</span><br><span class="line">        NextReview = DateTime.Now;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Anki</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Card&gt; _cards;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Anki</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cards = <span class="keyword">new</span> List&lt;Card&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddCard</span>(<span class="params">Card card</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cards.Add(card);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Study</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        List&lt;Card&gt; cardsToReview = <span class="keyword">new</span> List&lt;Card&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (Card card <span class="keyword">in</span> _cards)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (card.NextReview &lt;= DateTime.Now)</span><br><span class="line">            &#123;</span><br><span class="line">                cardsToReview.Add(card);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (Card card <span class="keyword">in</span> cardsToReview)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Question: &quot;</span> + card.Question);</span><br><span class="line">            Console.Write(<span class="string">&quot;Answer: &quot;</span>);</span><br><span class="line">            <span class="built_in">string</span> answer = Console.ReadLine();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (answer == card.Answer)</span><br><span class="line">            &#123;</span><br><span class="line">                card.Repetition++;</span><br><span class="line">                card.EFactor = card.EFactor + (<span class="number">0.1</span> - (<span class="number">5</span> - card.Repetition) * (<span class="number">0.08</span> + (<span class="number">5</span> - card.Repetition) * <span class="number">0.02</span>));</span><br><span class="line">                card.EFactor = Math.Max(<span class="number">1.3</span>, card.EFactor);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (card.Repetition == <span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    card.NextReview = DateTime.Now.AddDays(<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    card.NextReview = DateTime.Now.AddDays((<span class="built_in">int</span>)(card.EFactor * card.Repetition));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                card.Repetition = <span class="number">0</span>;</span><br><span class="line">                card.EFactor = <span class="number">2.5</span>;</span><br><span class="line">                card.NextReview = DateTime.Now;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">程式碼中的 Card 類別表示卡片，它包含問題，答案，重複次數，記憶遺忘曲線的因素值，以及下次檢視的時間。</span><br><span class="line"></span><br><span class="line">而 Anki 類別則管理所有卡片的列表，並實作了學習邏輯。</span><br><span class="line"></span><br><span class="line">在程式碼中，AddCard 方法用於新增卡片到列表中，Study 方法則實作了 Anki 演算法中的學習邏輯。</span><br><span class="line">在 Study 方法中，先遍歷所有卡片，找出需要檢視的卡片，然後對每張卡片進行檢視，並根據回答正確與否更新卡片的重複次數，記憶遺忘曲線的因素值和下次檢視的時間。</span><br><span class="line"></span><br><span class="line">若回答正確，則將重複次數加1，並根據公式計算新的記憶遺忘曲線因素值，並設定下次檢視時間。若回答錯誤，則將重複次數設為0，記憶遺忘曲線因素值設為2.5，並設定下次檢視時間為當前時間。</span><br><span class="line">請注意，這只是一個簡單的範例，並不包含所有 Anki 演算法的細節，如果要實作實際應用，還需要更多的功能與邏輯。</span><br></pre></td></tr></table></figure>
+
+<h4 id="步驟3"><a href="#步驟3" class="headerlink" title="步驟3"></a>步驟3</h4><p>問: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">再詳細說明一下記憶遺忘曲線的原理</span><br></pre></td></tr></table></figure>
+
+<p>答: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">記憶遺忘曲線是一種描述人類記憶遺忘曲線的統計模型。它是由德國心理學家Hermann Ebbinghaus在1885年提出的。</span><br><span class="line"></span><br><span class="line">模型中，每一次記憶一個新的東西都會有一個遺忘曲線，表示記憶這個東西的過程。在過程中，記憶會先快速遞減，之後會慢慢遞減。</span><br><span class="line"></span><br><span class="line">遺忘曲線的具體形狀可以用一個經典的指數遺忘曲線模型來描述，其中記憶遺忘程度可以用一個叫做記憶遺忘曲線因素（memory-decay factor）的參數來描述。記憶遺忘曲線因素一般在 0.5 到 2.5 之間，數值越大，記憶遺忘越快。</span><br><span class="line"></span><br><span class="line">Anki 演算法就是利用記憶遺忘曲線的原理來設計學習計畫，根據每張卡片上次學習的時間和記憶遺忘曲線因素來計算下次學習時間，達到輕鬆記憶和長期記憶的目的。</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="步驟4"><a href="#步驟4" class="headerlink" title="步驟4"></a>步驟4</h4><p>問: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用c#程式碼說明記憶遺忘曲線</span><br></pre></td></tr></table></figure>
+
+<p>答: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是一個簡單的 C# 程式碼範例，模擬記憶遺忘曲線的過程。</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">MemoryDecay</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 設定記憶遺忘曲線因素</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">double</span> memoryDecayFactor = <span class="number">0.8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 記錄每次學習時的記憶程度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">double</span>[] memory;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MemoryDecay</span>(<span class="params"><span class="built_in">int</span> time</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        memory = <span class="keyword">new</span> <span class="built_in">double</span>[time];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化記憶程度</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; time; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            memory[i] = <span class="number">1.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; memory.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 計算遺忘程度</span></span><br><span class="line">            memory[i] = memory[i] * memoryDecayFactor;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrintMemory</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; memory.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Time: &quot;</span> + i + <span class="string">&quot;, Memory: &quot;</span> + memory[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">程式中，透過一個記憶遺忘曲線因素 memoryDecayFactor 來模擬記憶遺忘曲線，並將每次學習時的記憶程度儲存在 memory 陣列中。Update() 方法用來更新每次學習時的記憶程度，而 PrintMemory() 方法則用來輸出每次學習時的記憶程度。</span><br><span class="line"></span><br><span class="line">範例中的程式碼只是簡單的模擬記憶遺忘曲線，Anki 演算法需要考量更多因素，例如用戶的學習頻率、學習效果等，實際實作上會更複雜。</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="步驟5"><a href="#步驟5" class="headerlink" title="步驟5"></a>步驟5</h4><p>問: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">回到剛剛的anki程式碼實作，再加上使用者權重的因素，寫成c#程式碼</span><br></pre></td></tr></table></figure>
+
+<p>答: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是一個簡單的 C# 程式碼範例，實作 Anki 演算法並考慮使用者權重因素。</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">AnkiAlgorithm</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 儲存單元內容</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title">Card</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> content;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">double</span> weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 設定記憶遺忘曲線因素</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">double</span> memoryDecayFactor = <span class="number">0.8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 儲存所有單元</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Card&gt; cards = <span class="keyword">new</span> List&lt;Card&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddCard</span>(<span class="params"><span class="built_in">string</span> content, <span class="built_in">double</span> weight</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 新增單元</span></span><br><span class="line">        Card card = <span class="keyword">new</span> Card();</span><br><span class="line">        card.content = content;</span><br><span class="line">        card.weight = weight;</span><br><span class="line">        cards.Add(card);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; cards.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 計算遺忘程度</span></span><br><span class="line">            cards[i].weight = cards[i].weight * memoryDecayFactor;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 根據權重決定是否需要重新學習</span></span><br><span class="line">            <span class="keyword">if</span> (cards[i].weight &lt; <span class="number">0.5</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;Card: &quot;</span> + cards[i].content + <span class="string">&quot; needs to be reviewed.&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">程式中首先定義了一個名為 Card 的類別，用來儲存單元內容和權重。AnkiAlgorithm 類別中有一個 cards 陣列用來儲存所有單元，AddCard() 方法用來新增單元，Update() 方法則用來更新每個單元的權重。</span><br><span class="line"></span><br><span class="line">範例中的程式碼只是簡單的模擬 Anki 演算法，實際實作上會更複雜，例如需要考量用戶的學習頻率、學習效果等。</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="步驟6"><a href="#步驟6" class="headerlink" title="步驟6"></a>步驟6</h4><p>問: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">再加上記憶遺忘曲線的功能實作，一樣用c#程式碼表示</span><br></pre></td></tr></table></figure>
+
+<p>答: </p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是一個簡單的 C# 程式碼範例，實作 Anki 演算法並考慮使用者權重和記憶遺忘曲線因素。</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">AnkiAlgorithm</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 儲存單元內容</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title">Card</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> content;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">double</span> weight;</span><br><span class="line">        <span class="keyword">public</span> DateTime lastReview;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 設定記憶遺忘曲線因素</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">double</span> memoryDecayFactor = <span class="number">0.8</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">double</span> reviewInterval = <span class="number">0.2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 儲存所有單元</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Card&gt; cards = <span class="keyword">new</span> List&lt;Card&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddCard</span>(<span class="params"><span class="built_in">string</span> content, <span class="built_in">double</span> weight</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 新增單元</span></span><br><span class="line">        Card card = <span class="keyword">new</span> Card();</span><br><span class="line">        card.content = content;</span><br><span class="line">        card.weight = weight;</span><br><span class="line">        card.lastReview = DateTime.Now;</span><br><span class="line">        cards.Add(card);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; cards.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 計算遺忘程度</span></span><br><span class="line">            TimeSpan timeSinceLastReview = DateTime.Now - cards[i].lastReview;</span><br><span class="line">            <span class="built_in">double</span> forgettingCurve = Math.Pow(memoryDecayFactor, timeSinceLastReview.TotalDays / reviewInterval);</span><br><span class="line">            cards[i].weight = cards[i].weight * forgettingCurve;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 根據權重決定是否需要重新學習</span></span><br><span class="line">            <span class="keyword">if</span> (cards[i].weight &lt; <span class="number">0.5</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;Card: &quot;</span> + cards[i].content + <span class="string">&quot; needs to be reviewed.&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">程式中首先定義了一個名為 Card 的類別，用來儲存單元內容、權重和上次學習時間。AnkiAlgorithm 類別中有一個 cards 陣列用來儲存所有單元，AddCard() 方法用來新增單元，Update() 方法則用來更新每個單元的權重。</span><br><span class="line">程式碼中額外設定了兩個變數 reviewInterval 和 memoryDecayFactor，用來控制記憶遺忘曲線。reviewInterval 表示重新學習的間隔，memoryDecayFactor 表示記憶遺忘速率，它們都可以根據實際情況進行調整。</span><br><span class="line"></span><br><span class="line">在 Update() 方法中，程式會遍歷所有單元，計算每個單元的遺忘程度。程式會計算距離上次學習的時間，並使用 Math.Pow() 方法來計算遺忘程度。最後，程式會根據單元的權重來決定是否需要重新學習。</span><br><span class="line"></span><br><span class="line">這只是一個簡單的範例，實際的 Anki 演算法可能會更複雜且會有更多的參數可供調整。</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="評論"><a href="#評論" class="headerlink" title="評論"></a>評論</h3><p>由以上的回答，已經得到清楚的方向，未來再找時間做成自己背單字、學技術的工具<br>看看成果是否滿意</p>
+<h3 id="完整過程錄影"><a href="#完整過程錄影" class="headerlink" title="完整過程錄影"></a>完整過程錄影</h3><p><a target="_blank" rel="noopener" href="https://youtu.be/s-G3ineRCUc"><img src="https://img.youtube.com/vi/s-G3ineRCUc/0.jpg"></a></p>
+<h3 id="同場加映-sentdex-大神用-ChatGPT-Writes-a-Chatbot-AI"><a href="#同場加映-sentdex-大神用-ChatGPT-Writes-a-Chatbot-AI" class="headerlink" title="同場加映 - sentdex 大神用 ChatGPT Writes a Chatbot AI"></a>同場加映 - sentdex 大神用 ChatGPT Writes a Chatbot AI</h3><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QumfkMQr47M"><img src="https://img.youtube.com/vi/QumfkMQr47M/0.jpg"></a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ChatGPT/" rel="tag"># ChatGPT</a>
+              <a href="/tags/Anki/" rel="tag"># Anki</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/29/202301/20230129-NodeSassIssue/" rel="prev" title="20230129-在其他電腦重裝Hexo之疑難排解">
+      <i class="fa fa-chevron-left"></i> 20230129-在其他電腦重裝Hexo之疑難排解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/30/202301/20230130-LinuxSqlite3Practice/" rel="next" title="20230130 在 Ubuntu 練習 Sqlite3">
+      20230130 在 Ubuntu 練習 Sqlite3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8E%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">過程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F1"><span class="nav-number">2.1.</span> <span class="nav-text">步驟1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F2"><span class="nav-number">2.2.</span> <span class="nav-text">步驟2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F3"><span class="nav-number">2.3.</span> <span class="nav-text">步驟3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F4"><span class="nav-number">2.4.</span> <span class="nav-text">步驟4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F5"><span class="nav-number">2.5.</span> <span class="nav-text">步驟5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F6"><span class="nav-number">2.6.</span> <span class="nav-text">步驟6</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A9%95%E8%AB%96"><span class="nav-number">3.</span> <span class="nav-text">評論</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E9%81%8E%E7%A8%8B%E9%8C%84%E5%BD%B1"><span class="nav-number">4.</span> <span class="nav-text">完整過程錄影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E5%A0%B4%E5%8A%A0%E6%98%A0-sentdex-%E5%A4%A7%E7%A5%9E%E7%94%A8-ChatGPT-Writes-a-Chatbot-AI"><span class="nav-number">5.</span> <span class="nav-text">同場加映 - sentdex 大神用 ChatGPT Writes a Chatbot AI</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hank Chang"
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name">Hank Chang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HankChangGSS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HankChangGSS" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      連結
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.darkthread.net/" title="https:&#x2F;&#x2F;blog.darkthread.net&#x2F;" rel="noopener" target="_blank">黑暗執行緒</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.miniasp.com/" title="https:&#x2F;&#x2F;blog.miniasp.com&#x2F;" rel="noopener" target="_blank">The Will Will Web</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://studyhost.blogspot.com/" title="http:&#x2F;&#x2F;studyhost.blogspot.com&#x2F;" rel="noopener" target="_blank">董大偉 .NET Walker</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rainmakerho.github.io/" title="https:&#x2F;&#x2F;rainmakerho.github.io&#x2F;" rel="noopener" target="_blank">亂馬客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.webapp.com.tw/News/default.aspx" title="http:&#x2F;&#x2F;www.webapp.com.tw&#x2F;News&#x2F;default.aspx" rel="noopener" target="_blank">格子樑 艾倫郭 最新消息</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/supershowwei/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;supershowwei&#x2F;" rel="noopener" target="_blank">軟體主廚的程式料理廚房</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/NewArticles/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;NewArticles&#x2F;" rel="noopener" target="_blank">點部落新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.coderbridge.com/explore?category=latest" title="https:&#x2F;&#x2F;www.coderbridge.com&#x2F;explore?category&#x3D;latest" rel="noopener" target="_blank">CoderBridge 新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hankchanggss.github.io/" title="https:&#x2F;&#x2F;hankchanggss.github.io&#x2F;" rel="noopener" target="_blank">My GitHub Pages</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hanksmemo.netlify.app/" title="https:&#x2F;&#x2F;hanksmemo.netlify.app&#x2F;" rel="noopener" target="_blank">My Netlify</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-book-open"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hank Chang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

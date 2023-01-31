@@ -253,11 +253,11 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E8%A1%93/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/%E6%8A%80%E8%A1%93/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E8%A1%93/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                  <a href="/categories/%E6%8A%80%E8%A1%93/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -312,7 +312,7 @@
 </li>
 <li><p>點選 Path 後，再按下 Edit 按鈕<br><img src="/2022/06/25/202206/20220625-git/006.png" alt="006"></p>
 </li>
-<li><p>依下列規則調整 URL/Path</p>
+<li><p>依下列規則調整 URL&#x2F;Path</p>
 <ul>
 <li>假設先前取得的密碼是 1rTKwWrlMwyUesWe5jB3，在密碼前碼加上: 再放回原始設定值中的 @ 前方</li>
 </ul>
@@ -330,10 +330,11 @@
 <h3 id="未整理的部份-SSH"><a href="#未整理的部份-SSH" class="headerlink" title="未整理的部份-SSH"></a>未整理的部份-SSH</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git@github.com:user_name/project.git</span><br><span class="line">git remote set-url origin git@github.com:HankChangGSS/GitIoSrc.git</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>文章重點備份<ul>
+<li><p>文章重點備份</p>
+<ul>
 <li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3431314/github-no-supported-authentication-methods-available">github: No supported authentication methods available</a>  </p>
 <ul>
-<li>Using TortoiseGit<br>TortoiseGit &gt; Settings … Network … SSH Client: C:\Program Files\Git\usr\bin\ssh.exe<br>Location my vary. On one computer it was in C:\Program Files (x86)\Git\bin\ssh.exe<br><img src="/2022/06/25/202206/20220625-git/008.png" alt="008"></li>
+<li>Using TortoiseGit<br>  TortoiseGit &gt; Settings … Network … SSH Client: C:\Program Files\Git\usr\bin\ssh.exe<br>  Location my vary. On one computer it was in C:\Program Files (x86)\Git\bin\ssh.exe<br>  <img src="/2022/06/25/202206/20220625-git/008.png" alt="008"></li>
 </ul>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://www.minwt.com/webdesign-dev/html/23197.html">GitHub 將不再支援以帳密的方式登入改採SSH，如何在GitHub配置SSH KEY</a></p>
@@ -342,15 +343,12 @@
 </li>
 </ul>
 </li>
+<li><p><a target="_blank" rel="noopener" href="https://cynthiachuang.github.io/Generating-a-Ssh-Key-and-Adding-It-to-the-Github/">使用 SSH 金鑰與 GitHub 連線</a>  </p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;hankchanggss@gmail.com&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://cynthiachuang.github.io/Generating-a-Ssh-Key-and-Adding-It-to-the-Github/">使用 SSH 金鑰與 GitHub 連線</a>    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;hankchanggss@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>D:\Blog\_ssh_key&gt;ssh-keygen -t rsa -b 4096 -C “<a href="mailto:&#104;&#x61;&#x6e;&#107;&#99;&#x68;&#97;&#110;&#103;&#x67;&#115;&#115;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#104;&#x61;&#x6e;&#107;&#99;&#x68;&#97;&#110;&#103;&#x67;&#115;&#115;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a>“<br>Generating public/private rsa key pair.<br>Enter file in which to save the key (C:\Users\HUNGCHIA/.ssh/id_rsa):<br>C:\Users\HUNGCHIA/.ssh/id_rsa already exists.<br>Overwrite (y/n)? y<br>Enter passphrase (empty for no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved in C:\Users\HUNGCHIA/.ssh/id_rsa.<br>Your public key has been saved in C:\Users\HUNGCHIA/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>SHA256:/kMIrvJr1/LJWuDf62YUVLcV0C9uuE3+m66zx8RwlQw <a href="mailto:&#104;&#97;&#x6e;&#107;&#99;&#104;&#97;&#110;&#103;&#x67;&#x73;&#x73;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#109;">&#104;&#97;&#x6e;&#107;&#99;&#104;&#97;&#110;&#103;&#x67;&#x73;&#x73;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#109;</a><br>The key’s randomart image is:<br>+—[RSA 4096]—-+<br>|           ..E*.+|<br>|          .  . *.|<br>|         .    . o|<br>|      .   .  ….|<br>|     …S. . o+. |<br>|     ..o. o . +o |<br>|     …oo   <em>o  |<br>|  . o o+.++ ..oo.|<br>|   +oo.+=+=o o</em>=o|<br>+—-[SHA256]—–+</p>
+<p>D:\Blog\_ssh_key&gt;ssh-keygen -t rsa -b 4096 -C “<a href="mailto:&#x68;&#97;&#110;&#107;&#x63;&#x68;&#x61;&#x6e;&#103;&#103;&#115;&#x73;&#64;&#103;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x68;&#97;&#110;&#107;&#x63;&#x68;&#x61;&#x6e;&#103;&#103;&#115;&#x73;&#64;&#103;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a>“<br>Generating public&#x2F;private rsa key pair.<br>Enter file in which to save the key (C:\Users\HUNGCHIA&#x2F;.ssh&#x2F;id_rsa):<br>C:\Users\HUNGCHIA&#x2F;.ssh&#x2F;id_rsa already exists.<br>Overwrite (y&#x2F;n)? y<br>Enter passphrase (empty for no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved in C:\Users\HUNGCHIA&#x2F;.ssh&#x2F;id_rsa.<br>Your public key has been saved in C:\Users\HUNGCHIA&#x2F;.ssh&#x2F;id_rsa.pub.<br>The key fingerprint is:<br>SHA256:&#x2F;kMIrvJr1&#x2F;LJWuDf62YUVLcV0C9uuE3+m66zx8RwlQw <a href="mailto:&#x68;&#x61;&#110;&#107;&#99;&#104;&#x61;&#110;&#x67;&#103;&#115;&#x73;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x68;&#x61;&#110;&#107;&#99;&#104;&#x61;&#110;&#x67;&#103;&#115;&#x73;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a><br>The key’s randomart image is:<br>+—[RSA 4096]—-+<br>|           ..E*.+|<br>|          .  . *.|<br>|         .    . o|<br>|      .   .  ….|<br>|     …S. . o+. |<br>|     ..o. o . +o |<br>|     …oo   <em>o  |<br>|  . o o+.++ ..oo.|<br>|   +oo.+&#x3D;+&#x3D;o o</em>&#x3D;o|<br>+—-[SHA256]—–+</p>
 <p>D:\Blog\_ssh_key&gt;  </p>
-<p>eval “$(ssh-agent -s)”<br>ssh-add ~/.ssh/id_rsa</p>
+<p>eval “$(ssh-agent -s)”<br>ssh-add ~&#x2F;.ssh&#x2F;id_rsa</p>
 
     </div>
 
@@ -451,18 +449,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -31,9 +31,9 @@
 <meta property="article:published_time" content="2020-12-16T11:42:00.000Z">
 <meta property="article:modified_time" content="2021-02-14T17:30:38.522Z">
 <meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="vmware">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="opensuse">
-<meta property="article:tag" content="vmware">
 <meta property="article:tag" content="嘸蝦米">
 <meta property="article:tag" content="pycharm">
 <meta name="twitter:card" content="summary">
@@ -266,36 +266,33 @@
 
 <h2 id="VMwareTools-更新-安裝過程全用預設值"><a href="#VMwareTools-更新-安裝過程全用預設值" class="headerlink" title="VMwareTools 更新 (安裝過程全用預設值)"></a>VMwareTools 更新 (安裝過程全用預設值)</h2><h3 id="步驟一"><a href="#步驟一" class="headerlink" title="步驟一"></a>步驟一</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf VMwareTools-10.3.21-14772444.tar.gz -C /tmp</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /tmp/vmware-tools-distrib</span><br><span class="line"></span><br><span class="line">sudo ./vmware-install.pl</span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://www.itread01.com/p/1377180.html">VMWare Tools 和 Shared folder（共享資料夾）</a></p>
-<h3 id="步驟二-無報錯即表示成功，檔案總管需重開"><a href="#步驟二-無報錯即表示成功，檔案總管需重開" class="headerlink" title="步驟二 (無報錯即表示成功，檔案總管需重開)"></a>步驟二 (無報錯即表示成功，檔案總管需重開)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other</span><br><span class="line"></span><br><span class="line">ls /mnt/hgfs</span><br></pre></td></tr></table></figure>
+<h3 id="步驟二-無報錯即表示成功，檔案總管需重開"><a href="#步驟二-無報錯即表示成功，檔案總管需重開" class="headerlink" title="步驟二 (無報錯即表示成功，檔案總管需重開)"></a>步驟二 (無報錯即表示成功，檔案總管需重開)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other</span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span> /mnt/hgfs</span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hcu5555/article/details/107182222">kali2020挂载共享文件夹（挂载hgfs共享文件）</a></p>
 <h3 id="步驟三-編輯-fstab-檔案"><a href="#步驟三-編輯-fstab-檔案" class="headerlink" title="步驟三 編輯 fstab 檔案"></a>步驟三 編輯 fstab 檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/fstab</span><br></pre></td></tr></table></figure>
 <p>結果參考如下</p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /                       btrfs  defaults                      0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /var                    btrfs  subvol=/@/var                 0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /usr/local              btrfs  subvol=/@/usr/local           0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /srv                    btrfs  subvol=/@/srv                 0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /root                   btrfs  subvol=/@/root                0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /opt                    btrfs  subvol=/@/opt                 0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /home                   btrfs  subvol=/@/home                0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /boot/grub2/x86_64-efi  btrfs  subvol=/@/boot/grub2/x86_64-efi  0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /boot/grub2/i386-pc     btrfs  subvol=/@/boot/grub2/i386-pc  0  0</span><br><span class="line">UUID=0f4ae7dd-1572-49c8-8849-dde58db9b6a7  /.snapshots             btrfs  subvol=/@/.snapshots          0  0</span><br><span class="line">UUID=7c1839cf-5194-4a36-9470-2b7c2c4ff2f9  swap                    swap   defaults                      0  0</span><br><span class="line"># mount hgfs</span><br><span class="line">.host:/       /mnt/hgfs        fuse.vmhgfs-fuse       allow_other     0       0</span><br></pre></td></tr></table></figure>
 
 <h2 id="調整開機時倒數等待之預設時間"><a href="#調整開機時倒數等待之預設時間" class="headerlink" title="調整開機時倒數等待之預設時間"></a>調整開機時倒數等待之預設時間</h2><p>1.導​​航到Yast-&gt;系統-&gt; Bootloader<br>2.單擊Bootloader安裝選項卡，然後單擊Boot Loader選項按鈕<br>3.在“秒數超時”字段下，更改從8秒到2秒之間的數字<br>4.單擊OK（確定）按鈕應用更改<br><a target="_blank" rel="noopener" href="https://forums.opensuse.org/showthread.php/412324-How-to-make-GRUB-countdown-shorter">How to make GRUB countdown shorter?</a></p>
-<h2 id="安裝無蝦米-嘸蝦米"><a href="#安裝無蝦米-嘸蝦米" class="headerlink" title="安裝無蝦米 (嘸蝦米)"></a>安裝無蝦米 (嘸蝦米)</h2><h3 id="重要步驟"><a href="#重要步驟" class="headerlink" title="重要步驟"></a>重要步驟</h3><p>1.解壓縮得出 noseeing.gtab<br>2.安裝gcin (yast)<br>3.開啟Kansole sudo cp noseeing.gtab /usr/share/gcin/table (無法直接用檔案總管複製)</p>
+<h2 id="安裝無蝦米-嘸蝦米"><a href="#安裝無蝦米-嘸蝦米" class="headerlink" title="安裝無蝦米 (嘸蝦米)"></a>安裝無蝦米 (嘸蝦米)</h2><h3 id="重要步驟"><a href="#重要步驟" class="headerlink" title="重要步驟"></a>重要步驟</h3><p>1.解壓縮得出 noseeing.gtab<br>2.安裝gcin (yast)<br>3.開啟Kansole sudo cp noseeing.gtab &#x2F;usr&#x2F;share&#x2F;gcin&#x2F;table (無法直接用檔案總管複製)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zypper install gcc</span><br></pre></td></tr></table></figure>
 
-<h3 id="字典檔備份"><a href="#字典檔備份" class="headerlink" title="字典檔備份"></a>字典檔備份</h3><p>./20201216-LinuxOpenSuse/noseeing.gtab</p>
+<h3 id="字典檔備份"><a href="#字典檔備份" class="headerlink" title="字典檔備份"></a>字典檔備份</h3><p>.&#x2F;20201216-LinuxOpenSuse&#x2F;noseeing.gtab</p>
 <h3 id="參考文章複製"><a href="#參考文章複製" class="headerlink" title="參考文章複製"></a>參考文章複製</h3><p>無蝦米安裝程序：</p>
 <ol>
-<li>於/etc/apt/sources.lst 加入這行<br>deb <a target="_blank" rel="noopener" href="http://www.calno.com/">http://www.calno.com</a> unstable main</li>
+<li>於&#x2F;etc&#x2F;apt&#x2F;sources.lst 加入這行<br>deb <a target="_blank" rel="noopener" href="http://www.calno.com/">http://www.calno.com</a> unstable main</li>
 <li>sudo apt-get update;sudo apt-get install gcin (安裝gcin)</li>
 <li>sudo im-switch -s gcin (下次登入即可使用gcin)</li>
 <li>wget <a target="_blank" rel="noopener" href="http://edt1023.sayya.org/misc/noseeing-6.tar.gz">http://edt1023.sayya.org/misc/noseeing-6.tar.gz</a> (下載無蝦米表格檔)</li>
 <li>tar zxvf noseeing-6.tar.gz</li>
-<li>sudo cp noseeing.gtab /usr/share/gcin/table/</li>
+<li>sudo cp noseeing.gtab &#x2F;usr&#x2F;share&#x2F;gcin&#x2F;table&#x2F;</li>
 <li>(system restart)<br><a target="_blank" rel="noopener" href="https://blog.xuite.net/jiazhe/running/14152737">Ubuntu gcin使用無蝦米輸入法</a></li>
 </ol>
-<h3 id="其他參考文章"><a href="#其他參考文章" class="headerlink" title="其他參考文章"></a>其他參考文章</h3><p><a target="_blank" rel="noopener" href="https://neroli.pixnet.net/blog/post/30476744">電腦文 OpenSuse Server上安裝gcin中文輸入法</a><br><a target="_blank" rel="noopener" href="https://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=360134">請問在英文語系的ubuntu，無法輸入中文    論壇 - Ubuntu基本設定</a></p>
+<h3 id="其他參考文章"><a href="#其他參考文章" class="headerlink" title="其他參考文章"></a>其他參考文章</h3><p><a target="_blank" rel="noopener" href="https://neroli.pixnet.net/blog/post/30476744">電腦文 OpenSuse Server上安裝gcin中文輸入法</a><br><a target="_blank" rel="noopener" href="https://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=360134">請問在英文語系的ubuntu，無法輸入中文	論壇 - Ubuntu基本設定</a></p>
 <h2 id="PyCharm-Python-Debugger-Extension-未整理筆記"><a href="#PyCharm-Python-Debugger-Extension-未整理筆記" class="headerlink" title="PyCharm Python Debugger Extension 未整理筆記"></a>PyCharm Python Debugger Extension 未整理筆記</h2><ul>
 <li>未安裝前，執行偵錯時會跳出提示，建議使用者安裝 Python Debugger Extension</li>
-<li>安裝的過程有些許繁瑣<br>2020-11-18<br>11:17    Python Debugger Extension Available<pre><code>      Cython extension speeds up Python debugging
-      Install   How does it work
-      
-</code></pre>
-install ok</li>
+<li>安裝的過程有些許繁瑣<br>2020-11-18<br>11:17	Python Debugger Extension Available<br>      Cython extension speeds up Python debugging<br>      Install   How does it work</li>
 </ul>
+<p>install ok</p>
 <h2 id="Software-Updates-更新指令"><a href="#Software-Updates-更新指令" class="headerlink" title="Software Updates 更新指令"></a>Software Updates 更新指令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo zypper dup</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -305,9 +302,9 @@ install ok</li>
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/vmware/" rel="tag"># vmware</a>
               <a href="/tags/linux/" rel="tag"># linux</a>
               <a href="/tags/opensuse/" rel="tag"># opensuse</a>
-              <a href="/tags/vmware/" rel="tag"># vmware</a>
               <a href="/tags/%E5%98%B8%E8%9D%A6%E7%B1%B3/" rel="tag"># 嘸蝦米</a>
               <a href="/tags/pycharm/" rel="tag"># pycharm</a>
           </div>
@@ -395,18 +392,18 @@ install ok</li>
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

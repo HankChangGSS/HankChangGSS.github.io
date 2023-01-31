@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="20230129-在其他電腦重裝Hexo之疑難排解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20230129-在其他電腦重裝Hexo之疑難排解">
+<meta property="og:url" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/index.html">
+<meta property="og:site_name" content="Hank&#39;s Memo">
+<meta property="og:description" content="20230129-在其他電腦重裝Hexo之疑難排解">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/npm.png">
+<meta property="og:image" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/db_json_error.png">
+<meta property="og:image" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/db_json_ok.png">
+<meta property="og:image" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/hexo_s_ok.png">
+<meta property="og:image" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/gitio_ssh.png">
+<meta property="article:published_time" content="2023-01-29T09:13:08.000Z">
+<meta property="article:modified_time" content="2023-01-30T02:38:15.374Z">
+<meta property="article:author" content="Hank Chang">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="NodeJS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/npm.png">
+
+<link rel="canonical" href="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>20230129-在其他電腦重裝Hexo之疑難排解 | Hank's Memo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hank's Memo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-文章列表">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-標籤">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-關於我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於我</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/29/202301/20230129-NodeSassIssue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="Hank Chang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hank's Memo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          20230129-在其他電腦重裝Hexo之疑難排解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-01-29 17:13:08" itemprop="dateCreated datePublished" datetime="2023-01-29T17:13:08+08:00">2023-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-30 10:38:15" itemprop="dateModified" datetime="2023-01-30T10:38:15+08:00">2023-01-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/" itemprop="url" rel="index"><span itemprop="name">技術</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E8%A1%93/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="note default">
+            <p>20230129-在其他電腦重裝Hexo之疑難排解</p>
+          </div>
+
+<span id="more"></span>
+
+<h3 id="重裝過程"><a href="#重裝過程" class="headerlink" title="重裝過程"></a>重裝過程</h3><ol>
+<li><p>確認已有安裝新版 NodeJS (有NPM)</p>
+<ul>
+<li>node -v	v18.13.0</li>
+</ul>
+</li>
+<li><p>確認已經有裝Git</p>
+</li>
+<li><p>安裝 Hexo</p>
+</li>
+</ol>
+<p>接下來執行以下指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo v</span><br></pre></td></tr></table></figure>
+<p>正常應該就會顯示所有套件版本，Hexo即可運作了，但本日遇到有下列問題</p>
+<h3 id="問題一-Node-Sass"><a href="#問題一-Node-Sass" class="headerlink" title="問題一 Node Sass"></a>問題一 Node Sass</h3><p>訊息如下</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Node Sass does not yet support your current environment: Windows 64-bit with Unsupported runtime</span><br></pre></td></tr></table></figure>
+<p>參考解法重要連結</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://www.edulinks.cn/2021/07/27/20210727-node-sass-problem/">node-sass安装遇到的错误</a></p>
+</li>
+<li><p>修改以下檔案<br>D:\Blog\GitIoSrc\package.json</p>
+</li>
+<li><p>基本上跟前次遇到問題解法一樣，但該網站其實還有更新的解法上次沒看到</p>
+</li>
+</ul>
+<p>可以使用 hexo-render-dartsass 插件代替</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;hexo-renderer-dartsass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.1.2&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>所以改完的 package.json 如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo-site&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;private&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;clean&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo server&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hexo&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5.4.2&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cheerio&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.0.0-rc.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^5.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-asset-link&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-deployer-git&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-archive&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-index&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-searchdb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.3.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-tag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-hide-posts&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.1.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-math&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-ejs&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-marked&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^6.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-dartsass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.1.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-stylus&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lodash&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.17.20&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;node-sass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.0.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>改完 package.json 後，還要執行下列指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm audit fix --force</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/29/202301/20230129-NodeSassIssue/npm.png" alt="npm"></p>
+<h3 id="問題二-err-Error-Cannot-find-module-‘-x2F-db-json’"><a href="#問題二-err-Error-Cannot-find-module-‘-x2F-db-json’" class="headerlink" title="問題二 err: Error: Cannot find module ‘.&#x2F;db.json’"></a>問題二 err: Error: Cannot find module ‘.&#x2F;db.json’</h3><ul>
+<li>參考下列文章</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/1720">Error: Cannot find module ‘.&#x2F;db.json’ #1720</a></p>
+<p>其中的回文提到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This happened because somehow db.json file is missing in mime-db modules... You can create a db.json file or install mime-db module in a different location and copy db.json from there.</span><br></pre></td></tr></table></figure>
+
+<p>看起來是缺了 db.json  </p>
+<p>所以回原電腦找到該檔案並複製到 \GitIoSrc\node_modules\mime-db\db.json  </p>
+<ul>
+<li>原因</li>
+</ul>
+<p>看了最早第一次安裝 Hexo 的記錄<br>不知為何當時刻意把 db.json 放入 gitignore<br>所以本日重抓時就缺了這個檔案，所以再重新加回 git ，以後應該就不會再發生此問題了</p>
+<p><img src="/2023/01/29/202301/20230129-NodeSassIssue/db_json_error.png" alt="db_json_error"></p>
+<p><img src="/2023/01/29/202301/20230129-NodeSassIssue/db_json_ok.png" alt="db_json_ok.png"></p>
+<p><img src="/2023/01/29/202301/20230129-NodeSassIssue/hexo_s_ok.png" alt="hexo_s_ok.png"></p>
+<h3 id="問題三-103-105-116-x40-x67-105-x74-x68-x75-x62-46-x63-111-109-Permission-denied-publickey"><a href="#問題三-103-105-116-x40-x67-105-x74-x68-x75-x62-46-x63-111-109-Permission-denied-publickey" class="headerlink" title="問題三 &#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#109;: Permission denied (publickey)."></a>問題三 <a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#109;">&#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#109;</a>: Permission denied (publickey).</h3><p>這幾天新加的 github ssh key 可以正常在一般的 repo 存取 (含 push &#x2F; clone 等)<br>但剛剛在進行  deploy hexo 時卻出現無權限的問題  </p>
+<p>解決方式如下</p>
+<p>需用 git bash 程式，然後依序執行 (環境是 Windows 10 網路上找的文章很多是在 linux 要注意)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent bash</span><br><span class="line">ssh-add ~/.ssh/github</span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>完整執行過程如下</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">[master 1478afb] Site updated: 2023-01-29 19:05:14</span><br><span class="line"> 4 files changed, 5 insertions(+), 5 deletions(-)</span><br><span class="line"> rewrite search.json (83%)</span><br><span class="line">git@github.com: Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL &#123;</span><br><span class="line">  err: Error: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (C:\_DATA\Github\GitIoSrc\node_modules\hexo-util\lib\spawn.js:51:21)</span><br><span class="line">      at ChildProcess.emit (node:events:513:28)</span><br><span class="line">      at cp.emit (C:\_DATA\Github\GitIoSrc\node_modules\cross-spawn\lib\enoent.js:34:29)</span><br><span class="line">      at ChildProcess._handle.onexit (node:internal/child_process:291:12) &#123;</span><br><span class="line">    code: 128</span><br><span class="line">  &#125;</span><br><span class="line">&#125; Something&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span><br><span class="line"></span><br><span class="line">HUNGCHIA@DESKTOP-O82RRBG MINGW64 /c/_DATA/Github/GitIoSrc (master)</span><br><span class="line">$ ssh-add ~/.ssh/github</span><br><span class="line">Could not open a connection to your authentication agent.</span><br><span class="line"></span><br><span class="line">HUNGCHIA@DESKTOP-O82RRBG MINGW64 /c/_DATA/Github/GitIoSrc (master)</span><br><span class="line">$ ssh-agent bash</span><br><span class="line"></span><br><span class="line">HUNGCHIA@DESKTOP-O82RRBG MINGW64 /c/_DATA/Github/GitIoSrc (master)</span><br><span class="line">$ ssh-add ~/.ssh/github</span><br><span class="line">Identity added: /c/Users/HUNGCHIA/.ssh/github (hungchia@DESKTOP-O82RRBG)</span><br><span class="line"></span><br><span class="line">HUNGCHIA@DESKTOP-O82RRBG MINGW64 /c/_DATA/Github/GitIoSrc (master)</span><br><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi HankChangGSS! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，一開始要 deploy 會報錯，沒權限<br>再來執行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/github </span><br></pre></td></tr></table></figure>
+<p>會出現</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not open a connection to your authentication agent.</span><br></pre></td></tr></table></figure>
+<p>找了一下解法，才知道要先用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent bash</span><br></pre></td></tr></table></figure>
+
+<p>摘要結論如下</p>
+<ol>
+<li>要用 git bash 加上自己指定的 ssh key (例如，此電腦登記在 Github 上的是 ~&#x2F;.ssh&#x2F;github )</li>
+<li>deploy 之前先用 ssh -T <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#111;&#x6d;">&#103;&#x69;&#x74;&#x40;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#111;&#x6d;</a> 確認是否有權限，不然可能產生了一堆檔案，等了一段時間才發現沒權限</li>
+<li>\GitIoSrc\_config.yml 可以確認一下 deploy 相關的內容</li>
+</ol>
+<p><img src="/2023/01/29/202301/20230129-NodeSassIssue/gitio_ssh.png" alt="gitio_ssh.png"></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:HankChangGSS/HankChangGSS.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="正確解法文章"><a href="#正確解法文章" class="headerlink" title="正確解法文章"></a>正確解法文章</h4><p><a target="_blank" rel="noopener" href="https://hoohoo.top/blog/to-resolve-ssh-add-appears-could-not-open-a-connection-to-your-authentication-agent/">解決，Ssh Add 出現 Could Not Open A Connection To Your Authentication Agent.</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">當執行 ssh-add 時</span><br><span class="line">  ssh-add ~/.ssh/&lt;private_key_file&gt;</span><br><span class="line"></span><br><span class="line">如果出現錯誤訊息： Could not open a connection to your authentication agent.</span><br><span class="line"></span><br><span class="line">執行進入 ssh bash ，就能正執行 ssh-add</span><br><span class="line">  ssh-agent bash</span><br><span class="line">  ssh-add ~/.ssh/&lt;private_key_file&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他參考文章及重點文字"><a href="#其他參考文章及重點文字" class="headerlink" title="其他參考文章及重點文字"></a>其他參考文章及重點文字</h4><p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/3339">Win10使用ssh的hexo deploy到github報錯 #3339</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Maybe the ssh picked the wrong key file.</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In you CMD, try to run ssh-add ~/.ssh/id_rsa, then try to deploy again.</span><br><span class="line">Reference: #2312</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/2312">using cmd,type hexo d, Error: Permission denied (publickey). #2312</a></p>
+<h2 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h2><p>在我的空閒時間裡，我會不斷開發高效率、易用的小工具，讓使用者能夠享受到更好的體驗。<br>如果您有任何特定的服務需求，或是想要委託我開發獨一無二的程式、其他形式的合作，<br>歡迎透過電子郵件 <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a> 與我聯繫。我會竭盡所能地為您提供最佳的服務。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/NodeJS/" rel="tag"># NodeJS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/23/202301/20230123-HelloStableDiffusion/" rel="prev" title="20230123 Stable Diffusion 製圖初體驗">
+      <i class="fa fa-chevron-left"></i> 20230123 Stable Diffusion 製圖初體驗
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/29/202301/20230129-ChatGPT_Anki/" rel="next" title="20230129-ChatGPT 教我實作 Anki 演算法">
+      20230129-ChatGPT 教我實作 Anki 演算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A3%9D%E9%81%8E%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">重裝過程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C%E4%B8%80-Node-Sass"><span class="nav-number">2.</span> <span class="nav-text">問題一 Node Sass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C%E4%BA%8C-err-Error-Cannot-find-module-%E2%80%98-x2F-db-json%E2%80%99"><span class="nav-number">3.</span> <span class="nav-text">問題二 err: Error: Cannot find module ‘.&#x2F;db.json’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C%E4%B8%89-103-105-116-x40-x67-105-x74-x68-x75-x62-46-x63-111-109-Permission-denied-publickey"><span class="nav-number">4.</span> <span class="nav-text">問題三 git@github.com: Permission denied (publickey).</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E8%A7%A3%E6%B3%95%E6%96%87%E7%AB%A0"><span class="nav-number">4.1.</span> <span class="nav-text">正確解法文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%83%E8%80%83%E6%96%87%E7%AB%A0%E5%8F%8A%E9%87%8D%E9%BB%9E%E6%96%87%E5%AD%97"><span class="nav-number">4.2.</span> <span class="nav-text">其他參考文章及重點文字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%9C%E5%85%85"><span class="nav-number"></span> <span class="nav-text">補充</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hank Chang"
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name">Hank Chang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HankChangGSS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HankChangGSS" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:HankChangGSS@gmail.com" title="E-Mail → mailto:HankChangGSS@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      連結
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.darkthread.net/" title="https:&#x2F;&#x2F;blog.darkthread.net&#x2F;" rel="noopener" target="_blank">黑暗執行緒</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.miniasp.com/" title="https:&#x2F;&#x2F;blog.miniasp.com&#x2F;" rel="noopener" target="_blank">The Will Will Web</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://studyhost.blogspot.com/" title="http:&#x2F;&#x2F;studyhost.blogspot.com&#x2F;" rel="noopener" target="_blank">董大偉 .NET Walker</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rainmakerho.github.io/" title="https:&#x2F;&#x2F;rainmakerho.github.io&#x2F;" rel="noopener" target="_blank">亂馬客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.webapp.com.tw/News/default.aspx" title="http:&#x2F;&#x2F;www.webapp.com.tw&#x2F;News&#x2F;default.aspx" rel="noopener" target="_blank">格子樑 艾倫郭 最新消息</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/supershowwei/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;supershowwei&#x2F;" rel="noopener" target="_blank">軟體主廚的程式料理廚房</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://dotblogs.com.tw/NewArticles/" title="https:&#x2F;&#x2F;dotblogs.com.tw&#x2F;NewArticles&#x2F;" rel="noopener" target="_blank">點部落新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.coderbridge.com/explore?category=latest" title="https:&#x2F;&#x2F;www.coderbridge.com&#x2F;explore?category&#x3D;latest" rel="noopener" target="_blank">CoderBridge 新進文章</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hankchanggss.github.io/" title="https:&#x2F;&#x2F;hankchanggss.github.io&#x2F;" rel="noopener" target="_blank">My GitHub Pages</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hanksmemo.netlify.app/" title="https:&#x2F;&#x2F;hanksmemo.netlify.app&#x2F;" rel="noopener" target="_blank">My Netlify</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-book-open"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hank Chang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

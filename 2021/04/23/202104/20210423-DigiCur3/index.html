@@ -281,22 +281,19 @@
 <li><p>切換至 Linux 頁籤並下載<br><img src="/2021/04/23/202104/20210423-DigiCur3/DownloadGoLinux.png" alt="DownloadGo"></p>
 </li>
 <li><p>解壓縮<br>參考上述官網指令，進行解壓縮。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/<span class="built_in">local</span>/go &amp;&amp; tar -C /usr/<span class="built_in">local</span> -xzf go1.16.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.16.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure></li>
 </ol>
 <ul>
-<li>需先建立 /usr/local/go 資料夾</li>
+<li>需先建立 &#x2F;usr&#x2F;local&#x2F;go 資料夾</li>
 <li>特殊的資料夾需有 root 權限，否則無法順利解壓縮</li>
-<li>目前對 linux 權限管理不熟，先用一個可能不算好的解法，可暫時解決無權限可解壓縮的問題，但正確性及安全性仍待確認。 參考連結: <a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/541961f446a3e2a1933bb5cc561ac256.html">文件夹权限问题</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
-</li>
+<li>目前對 linux 權限管理不熟，先用一個可能不算好的解法，可暫時解決無權限可解壓縮的問題，但正確性及安全性仍待確認。 參考連結: <a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/541961f446a3e2a1933bb5cc561ac256.html">文件夹权限问题</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R $(<span class="built_in">whoami</span>) /usr/local/</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ol start="3">
-<li>設定環境變數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/go/bin</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>設定環境變數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/local/go/bin</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h4 id="安裝並設定-BBGO-程式"><a href="#安裝並設定-BBGO-程式" class="headerlink" title="安裝並設定 BBGO 程式"></a>安裝並設定 BBGO 程式</h4><ol>
 <li><p>參考 <a target="_blank" rel="noopener" href="https://c9s.medium.com/bbgo-%E5%9C%A8%E5%AE%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%91%E7%B6%B2%E6%A0%BC%E7%AD%96%E7%95%A5%E7%A8%8B%E5%BC%8F-cdb59e171cf9">BBGO — 在家也可以跑網格策略程式</a> 這篇教學所提供的指令，執行它。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -s https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;c9s&#x2F;bbgo&#x2F;main&#x2F;scripts&#x2F;setup-grid.sh)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -s https://raw.githubusercontent.com/c9s/bbgo/main/scripts/setup-grid.sh)</span><br></pre></td></tr></table></figure></li>
 <li><p>根據提示設定 API KEY 後，可看到產出的 .env.local 檔案內容如下<br><img src="/2021/04/23/202104/20210423-DigiCur3/API3.png" alt="API"></p>
 </li>
 <li><p>參考教學文章，將策略設定改為自己試用的 MAXTWD 商品， bbgo.yaml 大概會長這個樣子。</p>
@@ -424,18 +421,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
